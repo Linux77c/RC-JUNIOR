@@ -1,0 +1,21 @@
+<?php
+// Configurazione database MySQL
+$config = [
+    'host' => 'localhost',
+    'dbname' => 'my_l3drc',
+    'username' => 'l3drc',
+    'password' => 'qnTs5XKFnwCY',
+    'charset' => 'utf8mb4'
+];
+
+// Stringa di connessione PDO
+$dsn = "mysql:host=localhost;dbname=my_l3drc;charset=utf8mb4";
+
+// Parametri per .env Laravel
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=my_l3drc
+DB_USERNAME=l3drc
+DB_PASSWORD=qnTs5XKFnwCY
+?>

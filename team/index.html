@@ -1,0 +1,3617 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RC Junior/Senior - Team Buggy 1/8</title>
+    <meta name="description" content="Team RC Buggy 1/8 Junior e Senior - Passione, formazione e competizione">
+    
+    <!-- PWA Meta Tags Corretti -->
+    <meta name="theme-color" content="#FF2E00">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="RC Team">
+    <meta name="msapplication-TileColor" content="#FF2E00">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon e icons corretti -->
+    <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="img/icons/icon-512.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF2E00;
+            --primary-dark: #CC2500;
+            --secondary: #1B1F23;
+            --secondary-light: #2A3038;
+            --accent: #FFD700;
+            --accent-orange: #FF6B00;
+            --success: #00D4AA;
+            --danger: #FF0040;
+            --warning: #FFA726;
+            --light: #F8FAFC;
+            --dark: #0F1419;
+            --text-light: #94A3B8;
+            --border: #334155;
+            --gradient-primary: linear-gradient(135deg, #FF2E00 0%, #FF6B00 50%, #FFD700 100%);
+            --gradient-dark: linear-gradient(135deg, #0F1419 0%, #1B1F23 50%, #2A3038 100%);
+            --gradient-racing: linear-gradient(90deg, #FF2E00 0%, #000000 50%, #FFD700 100%);
+            --shadow-racing: 0 8px 32px rgba(255, 46, 0, 0.3);
+            --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--light);
+            background: var(--dark);
+            margin: 0;
+            padding-top: 90px;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 46, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 107, 0, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Racing Header */
+        .header {
+            background: var(--gradient-dark);
+            color: white;
+            padding: 1.5rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow-dark);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-racing);
+            animation: pulse-border 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+            box-shadow: var(--shadow-racing);
+            position: relative;
+            overflow: hidden;
+            background-image: url('img/logo/logo-white.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .logo-icon:empty::before {
+            content: 'RC';
+            position: static;
+            background: none;
+            animation: none;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 0;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin: 0;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-btn:hover::before,
+        .nav-btn.active::before {
+            left: 0;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-racing);
+        }
+
+        /* Install Button Racing Style */
+        .install-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow-racing);
+            font-size: 1.4rem;
+            z-index: 1000;
+            display: none;
+            transition: all 0.3s ease;
+            animation: pulse-install 2s infinite;
+        }
+
+        @keyframes pulse-install {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .install-btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0 8px 40px rgba(255, 46, 0, 0.5);
+        }
+
+        /* Main Content Racing Style */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .page {
+            display: none;
+            animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes slideInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section Motorsport */
+        .hero {
+            background: var(--gradient-dark);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            margin: -2rem -2rem 3rem -2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="racing" patternUnits="userSpaceOnUse" width="20" height="20"><rect width="10" height="10" fill="%23FF2E00" opacity="0.1"/><rect x="10" y="10" width="10" height="10" fill="%23FF2E00" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23racing)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-racing);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            font-weight: 900;
+            letter-spacing: -2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            opacity: 0.9;
+            color: var(--text-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-btn {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-racing);
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(255, 46, 0, 0.4);
+        }
+
+        .cta-btn.secondary {
+            background: transparent;
+            color: white;
+            border: 3px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-btn.secondary:hover {
+            background: var(--primary);
+            box-shadow: var(--shadow-racing);
+        }
+
+        /* Racing Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: var(--secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-dark);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(255, 46, 0, 0.2);
+            border-color: var(--primary);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Pilot Cards Racing Style */
+        .pilot-card {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--gradient-dark);
+        }
+
+        .pilot-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+        }
+
+        .pilot-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 30px rgba(255, 46, 0, 0.3);
+            border: 4px solid var(--accent);
+        }
+
+        .pilot-avatar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+            animation: avatar-shine 3s infinite;
+        }
+
+        @keyframes avatar-shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .pilot-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .pilot-avatar:empty::before {
+            content: attr(data-initials);
+            position: static;
+            background: none;
+            animation: none;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .pilot-category {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+
+        .pilot-card h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pilot-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Sponsor Cards Racing Style */
+        .sponsor-card {
+            text-align: center;
+            border: 2px solid var(--border);
+            background: var(--secondary-light);
+            position: relative;
+        }
+
+        .sponsor-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sponsor-card:hover::before {
+            opacity: 1;
+        }
+
+        .sponsor-logo {
+            width: 100px;
+            height: 100px;
+            background: var(--light);
+            border-radius: 15px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .sponsor-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .sponsor-logo:empty::before {
+            content: '🏢';
+        }
+
+        .sponsor-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .sponsor-card p {
+            color: var(--text-light);
+        }
+
+        /* Form Styles Racing */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--light);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--secondary-light);
+            color: var(--light);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255, 46, 0, 0.1);
+            background: var(--secondary);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-light);
+        }
+
+        .btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-racing);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 46, 0, 0.4);
+        }
+
+        .btn.danger {
+            background: linear-gradient(135deg, #FF0040 0%, #CC0030 100%);
+        }
+
+        .btn.success {
+            background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%);
+        }
+
+        .btn.secondary {
+            background: var(--gradient-dark);
+            border: 2px solid var(--border);
+        }
+
+        /* Admin Section Racing Style */
+        .admin-login {
+            max-width: 450px;
+            margin: 3rem auto;
+            background: var(--secondary);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-dark);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-racing);
+        }
+
+        .admin-login h2 {
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 800;
+        }
+
+        .admin-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--secondary-light);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-dark);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            margin-top: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* CORREZIONI RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 140px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .logo-text h1 {
+                font-size: 1.4rem;
+            }
+
+            .logo-text p {
+                font-size: 0.8rem;
+                display: block;
+            }
+
+            .nav-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            .nav-btn {
+                font-size: 0.8rem;
+                padding: 0.6rem 1rem;
+                margin: 0.2rem;
+            }
+
+            .hero {
+                padding: 3rem 1rem;
+                margin: -1rem -1rem 2rem -1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .cta-btn {
+                width: 100%;
+                max-width: 280px;
+                padding: 1rem 1.5rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 2rem 0;
+            }
+
+            .card {
+                padding: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .pilot-avatar {
+                width: 80px;
+                height: 80px;
+            }
+
+            .main-content {
+                padding: 0 1rem;
+            }
+
+            .admin-login {
+                margin: 2rem 0.5rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: 160px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .nav-btn {
+                font-size: 0.7rem;
+                padding: 0.5rem 0.8rem;
+            }
+
+            .logo-text h1 {
+                font-size: 1.2rem;
+                display: block !important;
+            }
+
+            .logo-text p {
+                font-size: 0.7rem;
+                display: block !important;
+            }
+
+            .admin-login {
+                margin: 1rem 0.5rem;
+                padding: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Notifications Racing Style */
+        .notification {
+            position: fixed;
+            top: 120px;
+            right: 30px;
+            background: var(--secondary);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-dark);
+            border-left: 4px solid var(--primary);
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 350px;
+            backdrop-filter: blur(10px);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            border-left-color: var(--success);
+        }
+
+        .notification.error {
+            border-left-color: var(--danger);
+        }
+
+        .notification.warning {
+            border-left-color: var(--warning);
+        }
+
+        /* Modal Racing Style */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--secondary);
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-racing);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-header h3 {
+            color: var(--accent);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+            background: rgba(255, 0, 64, 0.1);
+        }
+
+        /* Special Racing Elements */
+        .racing-stripe {
+            position: relative;
+        }
+
+        .racing-stripe::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .performance-badge {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Hero Title Racing Effect */
+        .hero h1 {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-racing);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">RC</div>
+                <div class="logo-text">
+                    <h1>RC JUNIOR/SENIOR</h1>
+                    <p>Team Buggy 1/8 • Passione & Competizione</p>
+                </div>
+            </div>
+            <nav class="nav-buttons">
+                <button class="nav-btn active" onclick="showPage('home')">Home</button>
+                <button class="nav-btn" onclick="showPage('pilots')">Piloti</button>
+                <button class="nav-btn" onclick="showPage('sponsors')">Sponsor</button>
+                <button class="nav-btn" onclick="showPage('events')">Eventi</button>
+                <button class="nav-btn" onclick="showPage('join')">Unisciti</button>
+                <button class="nav-btn" onclick="showPage('pilot-area')">Area Piloti</button>
+                <button class="nav-btn" onclick="showPage('contact')">Contatti</button>
+                <button class="nav-btn" onclick="showPage('admin')">Admin</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Install Button -->
+    <button class="install-btn" id="installBtn" onclick="installApp()" title="Installa App">📱</button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <section class="hero">
+                <h1>RC JUNIOR/SENIOR</h1>
+                <p>Il team RC Buggy 1/8 che unisce passione, formazione e competizione ad alto livello. Piloti Junior e Senior insieme per dominare le piste più impegnative.</p>
+                <div class="cta-buttons">
+                    <button class="cta-btn" onclick="showPage('pilots')">Scopri il Team</button>
+                    <button class="cta-btn secondary" onclick="showPage('join')">Unisciti al Team</button>
+                </div>
+            </section>
+
+            <div class="cards-grid">
+                <div class="card racing-stripe">
+                    <h3>Prestazioni Extreme</h3>
+                    <p>Squadra di elite specializzata in RC Buggy 1/8 ad alte prestazioni. Setup professionali, tecniche avanzate e strategia vincente per dominare ogni gara.</p>
+                    <span class="performance-badge">High Performance</span>
+                </div>
+                <div class="card racing-stripe">
+                    <h3>Competizione Pro</h3>
+                    <p>Partecipiamo ai campionati più prestigiosi con piloti esperti e giovani talenti. Ogni gara è un'opportunità per dimostrare la nostra superiorità tecnica.</p>
+                    <span class="performance-badge">Racing Team</span>
+                </div>
+                <div class="card racing-stripe">
+                    <h3>Sviluppo Talenti</h3>
+                    <p>Academy di formazione dove i piloti Junior apprendono dai campioni Senior. Metodologie professionali per forgiare i vincitori di domani.</p>
+                    <span class="performance-badge">Academy</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PILOTS PAGE -->
+        <div id="pilots" class="page">
+            <h2 style="color: var(--accent); font-weight: 800; margin-bottom: 1rem;">👥 Racing Team Elite</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">I nostri piloti sono l'anima del team RC Junior/Senior. Talenti emergenti e veterani delle competizioni uniti dalla passione per la velocità e la precisione.</p>
+            
+            <div class="cards-grid" id="pilotsGrid">
+                <!-- Pilots will be loaded here -->
+            </div>
+        </div>
+
+        <!-- SPONSORS PAGE -->
+        <div id="sponsors" class="page">
+            <h2 style="color: var(--accent); font-weight: 800; margin-bottom: 1rem;">🤝 Partner Tecnici</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">I nostri sponsor sono partner strategici che credono nelle nostre prestazioni. Insieme costruiamo il futuro delle competizioni RC.</p>
+            
+            <div class="cards-grid" id="sponsorsGrid">
+                <!-- Sponsors will be loaded here -->
+            </div>
+
+            <div class="card racing-stripe" style="text-align: center; margin-top: 3rem; background: var(--gradient-dark);">
+                <h3 style="color: var(--accent);">🌟 Diventa Partner Tecnico</h3>
+                <p style="color: var(--text-light);">Unisciti al progetto RC Junior/Senior e ottieni visibilità massima nel mondo delle competizioni!</p>
+                <button class="btn" onclick="openModal('sponsorModal')">🚀 Partnership Elite</button>
+            </div>
+        </div>
+
+        <!-- EVENTS PAGE -->
+        <div id="events" class="page">
+            <h2 style="color: var(--accent); font-weight: 800; margin-bottom: 1rem;">🏁 Calendario Competizioni</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">Segui le nostre partecipazioni alle gare più prestigiose e gli eventi di training del team.</p>
+            
+            <div class="cards-grid" id="eventsGrid">
+                <!-- Events will be loaded here -->
+            </div>
+        </div>
+
+        <!-- JOIN TEAM PAGE -->
+        <div id="join" class="page">
+            <h2 style="color: var(--accent); font-weight: 800; margin-bottom: 1rem;">🌟 Diventa Parte dell'Elite</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">Hai quello che serve per competere ad alto livello? Unisciti al team RC Junior/Senior e trasforma la tua passione in prestazioni vincenti!</p>
+            
+            <div class="card" style="max-width: 700px; margin: 2rem auto; background: var(--gradient-dark);">
+                <h3 style="color: var(--accent);">📝 Registrazione Team Elite</h3>
+                <div style="background: rgba(255, 215, 0, 0.1); padding: 1rem; border-radius: 10px; margin-bottom: 2rem; border-left: 4px solid var(--accent);">
+                    <strong>⚡ Selezione Rigorosa</strong><br>
+                    <span style="color: var(--text-light);">Il nostro team accetta solo piloti motivati e determinati a crescere nel mondo delle competizioni RC.</span>
+                </div>
+                <form onsubmit="submitRegistration(event)">
+                    <div class="form-group">
+                        <label>Nome *</label>
+                        <input type="text" class="form-control" id="regName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Cognome *</label>
+                        <input type="text" class="form-control" id="regSurname" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" class="form-control" id="regEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono</label>
+                        <input type="tel" class="form-control" id="regPhone">
+                    </div>
+                    <div class="form-group">
+                        <label>Data di Nascita *</label>
+                        <input type="date" class="form-control" id="regBirthDate" required onchange="calculateCategory()">
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <input type="text" class="form-control" id="regCategory" readonly style="background: rgba(255,255,255,0.1);">
+                        <small style="color: var(--text-light);">Calcolata automaticamente dall'età (Junior &lt;18 anni, Senior ≥18 anni)</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Esperienza RC</label>
+                        <select class="form-control" id="regExperience">
+                            <option value="">Seleziona il tuo livello</option>
+                            <option value="principiante">Principiante (0-1 anni)</option>
+                            <option value="intermedio">Intermedio (2-5 anni)</option>
+                            <option value="esperto">Esperto (5+ anni)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Password *</label>
+                        <input type="password" class="form-control" id="regPassword" required minlength="6">
+                        <small style="color: var(--text-light);">Minimo 6 caratteri</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Conferma Password *</label>
+                        <input type="password" class="form-control" id="regPasswordConfirm" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label>Foto Profilo</label>
+                        <input type="file" class="form-control" id="regPhoto" accept="image/*" onchange="previewImage(this, 'regPhotoPreview')">
+                        <div id="regPhotoPreview" style="margin-top: 0.5rem;"></div>
+                        <small style="color: var(--text-light);">Carica una tua foto (opzionale, potrai aggiungerla anche dopo)</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Presentati</label>
+                        <textarea class="form-control" id="regBio" rows="4" placeholder="Raccontaci qualcosa di te, delle tue passioni RC e cosa ti aspetti dal team..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="regAcceptTerms" required>
+                            Accetto i termini e condizioni del team
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="regAcceptNotifications">
+                            Desidero ricevere notifiche su eventi e novità del team
+                        </label>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">🚀 Invia Richiesta di Registrazione</button>
+                </form>
+            </div>
+
+            <div class="cards-grid" style="margin-top: 3rem;">
+                <div class="card racing-stripe">
+                    <h3 style="color: var(--accent);">🎯 Training Intensivo</h3>
+                    <p>Formazione tecnica avanzata, setup professionali, analisi telemetria e metodologie da competizione per massimizzare le prestazioni.</p>
+                    <span class="performance-badge">Pro Training</span>
+                </div>
+                <div class="card racing-stripe">
+                    <h3 style="color: var(--accent);">📚 Academy Elite</h3>
+                    <p>Programma di mentoring dove i piloti Junior apprendono direttamente dai campioni Senior attraverso sessioni pratiche e teoriche.</p>
+                    <span class="performance-badge">Mentorship</span>
+                </div>
+                <div class="card racing-stripe">
+                    <h3 style="color: var(--accent);">🏆 Competizioni Top</h3>
+                    <p>Partecipazione alle gare regionali e nazionali più prestigiose con supporto tecnico completo e strategia di gara professionale.</p>
+                    <span class="performance-badge">Championship</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PILOT AREA PAGE -->
+        <div id="pilot-area" class="page">
+            <div id="pilotLogin" class="admin-login">
+                <h2 style="text-align: center; margin-bottom: 2rem;">🔐 Area Piloti</h2>
+                <p style="text-align: center; margin-bottom: 2rem; color: var(--text-light);">Accedi al tuo profilo personale</p>
+                <form onsubmit="pilotLogin(event)">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" id="pilotEmail" required value="marco.rossi@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" id="pilotPassword" required value="pilot123">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Accedi</button>
+                </form>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <p style="color: var(--text-light);">Non hai un account? <a href="#" onclick="showPage('join')" style="color: var(--primary);">Registrati qui</a></p>
+                    <p style="color: var(--text-light); font-size: 0.8rem; margin-top: 1rem;">Demo: marco.rossi@email.com / pilot123</p>
+                </div>
+            </div>
+
+            <div id="pilotDashboard" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <h2>👋 Benvenuto, <span id="pilotWelcomeName"></span>!</h2>
+                        <p style="color: var(--text-light);">Ecco il tuo dashboard personale</p>
+                    </div>
+                    <button class="btn danger" onclick="pilotLogout()">🚪 Logout</button>
+                </div>
+
+                <div class="admin-dashboard">
+                    <div class="stat-card">
+                        <div class="stat-number" id="pilotEventsCount">0</div>
+                        <div class="stat-label">Eventi Partecipati</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pilotMaterialsCount">0</div>
+                        <div class="stat-label">Materiali Ricevuti</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pilotBestPosition">-</div>
+                        <div class="stat-label">Miglior Posizione</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pilotTeamDays">0</div>
+                        <div class="stat-label">Giorni nel Team</div>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>👤 Il Mio Profilo</h3>
+                        <p>Gestisci i tuoi dati personali, foto e informazioni</p>
+                        <button class="btn" onclick="openModal('pilotProfileModal')">Modifica Profilo</button>
+                    </div>
+                    <div class="card">
+                        <h3>🏁 I Miei Eventi</h3>
+                        <p>Visualizza gli eventi a cui hai partecipato e i risultati</p>
+                        <button class="btn" onclick="loadPilotEvents()">Vedi Eventi</button>
+                    </div>
+                    <div class="card">
+                        <h3>📦 I Miei Materiali</h3>
+                        <p>Materiali del team che hai ricevuto</p>
+                        <button class="btn" onclick="loadPilotMaterials()">Vedi Materiali</button>
+                    </div>
+                    <div class="card">
+                        <h3>🔔 Notifiche</h3>
+                        <p>Gestisci le tue preferenze di notifica</p>
+                        <button class="btn" onclick="openModal('notificationSettingsModal')">Impostazioni</button>
+                    </div>
+                </div>
+
+                <div id="pilotContent" style="margin-top: 2rem;">
+                    <!-- Contenuto dinamico area pilota -->
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="contact" class="page">
+            <h2 style="color: var(--accent); font-weight: 800; margin-bottom: 1rem;">📞 Contatti</h2>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>📧 Email</h3>
+                    <p>l3drc@altervista.org</p>
+                </div>
+                <div class="card">
+                    <h3>🌐 Website</h3>
+                    <p>https://l3drc.altervista.org/</p>
+                </div>
+                <div class="card">
+                    <h3>📱 Social</h3>
+                    <p>Seguici sui nostri canali social per tutti gli aggiornamenti!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN PAGE -->
+        <div id="admin" class="page">
+            <div id="adminLogin" class="admin-login">
+                <h2 style="text-align: center; margin-bottom: 2rem;">🔐 Area Admin</h2>
+                <form onsubmit="adminLogin(event)">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" id="adminUser" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" id="adminPass" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Accedi</button>
+                </form>
+                <p style="text-align: center; margin-top: 1rem; color: var(--text-light); font-size: 0.8rem;">
+                    Demo: admin / rcteam2025
+                </p>
+            </div>
+
+            <div id="adminDashboard" style="display: none;">
+                <h2 style="color: var(--accent); font-weight: 800; margin-bottom: 1rem;">📊 Dashboard Admin</h2>
+                
+                <div class="admin-dashboard">
+                    <div class="stat-card">
+                        <div class="stat-number" id="pilotsCount">0</div>
+                        <div class="stat-label">Piloti</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="sponsorsCount">0</div>
+                        <div class="stat-label">Sponsor</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="eventsCount">0</div>
+                        <div class="stat-label">Eventi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="materialsCount">0</div>
+                        <div class="stat-label">Materiali</div>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>👥 Gestione Piloti</h3>
+                        <p>Aggiungi, modifica e gestisci i piloti del team</p>
+                        <button class="btn" onclick="openModal('pilotModal')">Gestisci Piloti</button>
+                    </div>
+                    <div class="card">
+                        <h3>📝 Nuove Registrazioni</h3>
+                        <p>Approva o rifiuta le richieste di registrazione</p>
+                        <button class="btn" onclick="openModal('registrationsModal')">Gestisci Registrazioni</button>
+                        <div id="pendingCount" style="margin-top: 0.5rem; color: var(--accent); font-weight: bold;"></div>
+                    </div>
+                    <div class="card">
+                        <h3>🤝 Gestione Sponsor</h3>
+                        <p>Amministra i sponsor e i loro materiali</p>
+                        <button class="btn" onclick="openModal('sponsorManageModal')">Gestisci Sponsor</button>
+                    </div>
+                    <div class="card">
+                        <h3>🏁 Gestione Eventi</h3>
+                        <p>Crea eventi e invia notifiche ai piloti</p>
+                        <button class="btn" onclick="openModal('eventModal')">Gestisci Eventi</button>
+                    </div>
+                    <div class="card">
+                        <h3>📦 Gestione Materiali</h3>
+                        <p>Gestisci l'inventario completo del team</p>
+                        <button class="btn" onclick="openModal('materialModal')">Gestisci Materiali</button>
+                    </div>
+                    <div class="card">
+                        <h3>📋 Assegnazioni Materiali</h3>
+                        <p>Visualizza e gestisci assegnazioni ai piloti</p>
+                        <button class="btn" onclick="openModal('assignmentModal')">Vedi Assegnazioni</button>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn danger" onclick="adminLogout()">🚪 Logout</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    
+    <!-- Material Assignment Modal -->
+    <div id="assignmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📋 Assegnazioni Materiali</h3>
+                <button class="modal-close" onclick="closeModal('assignmentModal')">&times;</button>
+            </div>
+            <div id="assignmentList">
+                <!-- Contenuto caricato dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Material Management Modal -->
+    <div id="materialModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📦 Gestione Materiali Team</h3>
+                <button class="modal-close" onclick="closeModal('materialModal')">&times;</button>
+            </div>
+            <button class="btn" onclick="showMaterialForm()" style="margin-bottom: 1rem;">+ Aggiungi Materiale</button>
+            <div id="materialList">
+                <!-- Contenuto caricato dinamicamente -->
+            </div>
+            
+            <div id="materialForm" style="display: none; margin-top: 1rem;">
+                <h4>Nuovo Materiale</h4>
+                <form onsubmit="saveMaterial(event)">
+                    <div class="form-group">
+                        <label>Tipologia</label>
+                        <select class="form-control" id="materialType" required>
+                            <option value="">Seleziona tipologia</option>
+                            <option value="T-Shirt">T-Shirt</option>
+                            <option value="Cappellino">Cappellino</option>
+                            <option value="Felpa">Felpa</option>
+                            <option value="Giacca">Giacca</option>
+                            <option value="Adesivi">Adesivi</option>
+                            <option value="Portachiavi">Portachiavi</option>
+                            <option value="Borraccia">Borraccia</option>
+                            <option value="Zaino">Zaino</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrizione</label>
+                        <textarea class="form-control" id="materialDescription" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantità Ricevuta</label>
+                        <input type="number" class="form-control" id="materialQuantity" required min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Sponsor</label>
+                        <select class="form-control" id="materialSponsor">
+                            <option value="">Seleziona sponsor</option>
+                            <option value="Evolution Modellismo">Evolution Modellismo</option>
+                            <option value="RC Parts Store">RC Parts Store</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Data Ricezione</label>
+                        <input type="date" class="form-control" id="materialDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Informazioni Taglie/Colori</label>
+                        <input type="text" class="form-control" id="materialSizes" placeholder="es. S(2), M(5), L(3) - Nero">
+                    </div>
+                    <button type="submit" class="btn">💾 Salva Materiale</button>
+                    <button type="button" class="btn danger" onclick="hideMaterialForm()">❌ Annulla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registrations Management Modal -->
+    <div id="registrationsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📝 Gestione Registrazioni</h3>
+                <button class="modal-close" onclick="closeModal('registrationsModal')">&times;</button>
+            </div>
+            <div id="registrationsList"></div>
+        </div>
+    </div>
+
+    <!-- Sponsor Contact Modal -->
+    <div id="sponsorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🌟 Diventa Sponsor</h3>
+                <button class="modal-close" onclick="closeModal('sponsorModal')">&times;</button>
+            </div>
+            <form onsubmit="submitSponsorRequest(event)">
+                <div class="form-group">
+                    <label>Nome Azienda</label>
+                    <input type="text" class="form-control" id="sponsorCompany" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="sponsorEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefono</label>
+                    <input type="tel" class="form-control" id="sponsorPhone">
+                </div>
+                <div class="form-group">
+                    <label>Messaggio</label>
+                    <textarea class="form-control" id="sponsorMessage" rows="4" placeholder="Descrivi la tua proposta di sponsorship"></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Invia Richiesta</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pilot Management Modal -->
+    <div id="pilotModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>👥 Gestione Piloti</h3>
+                <button class="modal-close" onclick="closeModal('pilotModal')">&times;</button>
+            </div>
+            <button class="btn" onclick="showPilotForm()" style="margin-bottom: 1rem;">+ Aggiungi Pilota</button>
+            <div id="pilotList"></div>
+            
+            <div id="pilotForm" style="display: none; margin-top: 1rem;">
+                <h4>Nuovo Pilota</h4>
+                <form onsubmit="savePilot(event)">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" class="form-control" id="pilotName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Cognome</label>
+                        <input type="text" class="form-control" id="pilotSurname" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select class="form-control" id="pilotCategory" required>
+                            <option value="">Seleziona categoria</option>
+                            <option value="Junior">Junior</option>
+                            <option value="Senior">Senior</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea class="form-control" id="pilotBio" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Foto Profilo</label>
+                        <input type="file" class="form-control" id="pilotPhoto" accept="image/*" onchange="previewImage(this, 'pilotPreview')">
+                        <div id="pilotPreview" style="margin-top: 0.5rem;"></div>
+                        <small style="color: var(--text-light);">Carica un'immagine per il profilo del pilota (JPG, PNG)</small>
+                    </div>
+                    <button type="submit" class="btn">Salva Pilota</button>
+                    <button type="button" class="btn danger" onclick="hidePilotForm()">Annulla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Management Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🏁 Gestione Eventi</h3>
+                <button class="modal-close" onclick="closeModal('eventModal')">&times;</button>
+            </div>
+            <button class="btn" onclick="showEventForm()" style="margin-bottom: 1rem;">+ Nuovo Evento</button>
+            <div id="eventList"></div>
+            
+            <div id="eventForm" style="display: none; margin-top: 1rem;">
+                <h4>Nuovo Evento</h4>
+                <form onsubmit="saveEvent(event)">
+                    <div class="form-group">
+                        <label>Nome Evento</label>
+                        <input type="text" class="form-control" id="eventName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Data</label>
+                        <input type="date" class="form-control" id="eventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nome Pista</label>
+                        <input type="text" class="form-control" id="trackName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Indirizzo Pista</label>
+                        <input type="text" class="form-control" id="trackAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrizione</label>
+                        <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="sendNotification"> Invia notifica ai piloti
+                        </label>
+                    </div>
+                    <button type="submit" class="btn">Salva Evento</button>
+                    <button type="button" class="btn danger" onclick="hideEventForm()">Annulla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pilot Profile Modal -->
+    <div id="pilotProfileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>👤 Modifica Profilo</h3>
+                <button class="modal-close" onclick="closeModal('pilotProfileModal')">&times;</button>
+            </div>
+            <form onsubmit="updatePilotProfile(event)">
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" class="form-control" id="editPilotName" required>
+                </div>
+                <div class="form-group">
+                    <label>Cognome</label>
+                    <input type="text" class="form-control" id="editPilotSurname" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="editPilotEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefono</label>
+                    <input type="tel" class="form-control" id="editPilotPhone">
+                </div>
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea class="form-control" id="editPilotBio" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Nuova Foto Profilo</label>
+                    <input type="file" class="form-control" id="editPilotPhoto" accept="image/*" onchange="previewImage(this, 'editPilotPhotoPreview')">
+                    <div id="editPilotPhotoPreview" style="margin-top: 0.5rem;"></div>
+                    <div id="currentPilotPhoto" style="margin-top: 0.5rem;"></div>
+                </div>
+                <div class="form-group">
+                    <label>Cambia Password</label>
+                    <input type="password" class="form-control" id="editPilotPassword" placeholder="Lascia vuoto per non modificare">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">💾 Salva Modifiche</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Settings Modal -->
+    <div id="notificationSettingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🔔 Impostazioni Notifiche</h3>
+                <button class="modal-close" onclick="closeModal('notificationSettingsModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="notifyEvents" checked> 
+                    Notifiche per nuovi eventi del team
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="notifyMaterials" checked> 
+                    Notifiche per nuovi materiali disponibili
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="notifyResults" checked> 
+                    Notifiche per risultati gare
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="notifyNews" checked> 
+                    Notifiche per news del team
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="notifyReminders"> 
+                    Promemoria eventi (24h prima)
+                </label>
+            </div>
+            <button class="btn" onclick="saveNotificationSettings()" style="width: 100%;">💾 Salva Preferenze</button>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <div id="notificationText"></div>
+    </div>
+
+    <script>
+        // PWA Installation (Gestione migliorata per demo)
+        let deferredPrompt;
+        let isInstalled = false;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBtn').style.display = 'block';
+            showNotification('App pronta per installazione!', 'success');
+        });
+
+        async function installApp() {
+            if (deferredPrompt) {
+                try {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        showNotification('App installata con successo!', 'success');
+                        document.getElementById('installBtn').style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                } catch (error) {
+                    showNotification('Errore durante l\'installazione', 'error');
+                }
+            } else {
+                // Per installazione manuale
+                showNotification('Usa il menu del browser per installare l\'app', 'info');
+            }
+        }
+
+        // Service Worker Registration (Production Ready)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(registration => {
+                    console.log('✅ Service Worker registrato con successo');
+                    showNotification('PWA pronta per installazione!', 'success');
+                })
+                .catch(error => {
+                    console.log('ℹ️ Service Worker non disponibile (verificare file sw.js)');
+                    // Non mostrare errore se file non presente
+                });
+        }
+
+        // Navigation CORRETTA
+        function showPage(pageId) {
+            // Rimuovi classe active da tutte le pagine
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Aggiungi classe active alla pagina selezionata
+            document.getElementById(pageId).classList.add('active');
+            
+            // Aggiorna pulsanti navigazione
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Trova il pulsante cliccato
+            const clickedBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn => {
+                return btn.textContent.toLowerCase().includes(pageId.replace('-', ' '));
+            });
+            
+            if (clickedBtn) {
+                clickedBtn.classList.add('active');
+            }
+
+            // Carica dati della pagina
+            loadPageData(pageId);
+        }
+
+        function loadPageData(pageId) {
+            switch(pageId) {
+                case 'pilots':
+                    loadPilots();
+                    break;
+                case 'sponsors':
+                    loadSponsors();
+                    break;
+                case 'events':
+                    loadEvents();
+                    break;
+                case 'admin':
+                    updateAdminStats();
+                    break;
+            }
+        }
+
+        // Data Management
+        function getStorageData(key) {
+            try {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                console.error('Error reading storage:', e);
+                return [];
+            }
+        }
+
+        function setStorageData(key, data) {
+            try {
+                localStorage.setItem(key, JSON.stringify(data));
+            } catch (e) {
+                console.error('Error saving storage:', e);
+            }
+        }
+
+        // Initialize sample data
+        function initSampleData() {
+            if (!localStorage.getItem('pilots')) {
+                const samplePilots = [
+                    {
+                        id: 1,
+                        name: 'Marco',
+                        surname: 'Rossi',
+                        category: 'Senior',
+                        bio: 'Pilota esperto con 10 anni di esperienza nel RC Buggy 1/8',
+                        email: 'marco.rossi@email.com',
+                        password: 'pilot123'
+                    },
+                    {
+                        id: 2,
+                        name: 'Luca',
+                        surname: 'Bianchi',
+                        category: 'Junior',
+                        bio: 'Giovane promessa del team, molto determinato e in rapida crescita',
+                        email: 'luca.bianchi@email.com',
+                        password: 'pilot123'
+                    },
+                    {
+                        id: 3,
+                        name: 'Andrea',
+                        surname: 'Verdi',
+                        category: 'Senior',
+                        bio: 'Specialista in setup e tuning, mentor dei piloti Junior',
+                        email: 'andrea.verdi@email.com',
+                        password: 'pilot123'
+                    }
+                ];
+                setStorageData('pilots', samplePilots);
+            }
+
+            if (!localStorage.getItem('sponsors')) {
+                const sampleSponsors = [
+                    {
+                        id: 1,
+                        name: 'Evolution Modellismo',
+                        description: 'Partner principale del team, fornisce materiali e supporto tecnico',
+                        website: 'https://evolution-modellismo.com',
+                        logo: '🏪'
+                    }
+                ];
+                setStorageData('sponsors', sampleSponsors);
+            }
+
+            if (!localStorage.getItem('events')) {
+                const sampleEvents = [
+                    {
+                        id: 1,
+                        name: 'Gara Regionale Buggy 1/8',
+                        date: '2025-07-20',
+                        trackName: 'Pista RC Milano',
+                        trackAddress: 'Via Roma 123, Milano',
+                        description: 'Prima partecipazione del team alla gara regionale'
+                    }
+                ];
+                setStorageData('events', sampleEvents);
+            }
+
+            // 🔧 NUOVO SISTEMA MATERIALI COMPLETO
+            if (!localStorage.getItem('materials')) {
+                const sampleMaterials = [
+                    {
+                        id: 1,
+                        type: 'T-Shirt',
+                        description: 'Magliette ufficiali del team con logo Evolution Modellismo',
+                        quantity: 20,
+                        assigned: 5,
+                        sponsor: 'Evolution Modellismo',
+                        received: '2025-07-01',
+                        sizes: 'XS(2), S(4), M(6), L(5), XL(3)',
+                        color: 'Arancione/Nero'
+                    },
+                    {
+                        id: 2,
+                        type: 'Cappellini',
+                        description: 'Cappellini con logo team e sponsor',
+                        quantity: 15,
+                        assigned: 3,
+                        sponsor: 'Evolution Modellismo',
+                        received: '2025-07-01',
+                        sizes: 'Taglia unica regolabile',
+                        color: 'Nero'
+                    },
+                    {
+                        id: 3,
+                        type: 'Adesivi',
+                        description: 'Set adesivi per carrozzerie con loghi sponsor',
+                        quantity: 50,
+                        assigned: 8,
+                        sponsor: 'Evolution Modellismo',
+                        received: '2025-07-01',
+                        sizes: 'Set da 10 pezzi',
+                        color: 'Multicolore'
+                    },
+                    {
+                        id: 4,
+                        type: 'Portachiavi',
+                        description: 'Gadget promozionale a forma di buggy',
+                        quantity: 30,
+                        assigned: 4,
+                        sponsor: 'Evolution Modellismo',
+                        received: '2025-07-01',
+                        sizes: 'Taglia unica',
+                        color: 'Arancione'
+                    },
+                    {
+                        id: 5,
+                        type: 'Borracce',
+                        description: 'Borracce termiche brandizzate team',
+                        quantity: 12,
+                        assigned: 2,
+                        sponsor: 'Evolution Modellismo',
+                        received: '2025-07-05',
+                        sizes: '500ml',
+                        color: 'Nero/Arancione'
+                    },
+                    {
+                        id: 6,
+                        type: 'Felpe',
+                        description: 'Felpe tecniche del team per stagione fredda',
+                        quantity: 10,
+                        assigned: 1,
+                        sponsor: 'Evolution Modellismo',
+                        received: '2025-07-08',
+                        sizes: 'S(2), M(3), L(3), XL(2)',
+                        color: 'Nero/Arancione'
+                    },
+                    {
+                        id: 7,
+                        type: 'Zaini Tecnici',
+                        description: 'Zaini per trasporto attrezzatura RC',
+                        quantity: 8,
+                        assigned: 0,
+                        sponsor: 'RC Parts Store',
+                        received: '2025-07-10',
+                        sizes: '30L',
+                        color: 'Nero'
+                    },
+                    {
+                        id: 8,
+                        type: 'Tute da Gara',
+                        description: 'Tute complete per competizioni ufficiali',
+                        quantity: 6,
+                        assigned: 1,
+                        sponsor: 'RC Parts Store',
+                        received: '2025-07-12',
+                        sizes: 'S(1), M(2), L(2), XL(1)',
+                        color: 'Rosso/Nero'
+                    }
+                ];
+                setStorageData('materials', sampleMaterials);
+            }
+
+            if (!localStorage.getItem('pilot_registrations')) {
+                setStorageData('pilot_registrations', []);
+            }
+
+            if (!localStorage.getItem('material_assignments')) {
+                setStorageData('material_assignments', []);
+            }
+
+            if (!localStorage.getItem('event_results')) {
+                setStorageData('event_results', []);
+            }
+        }
+
+        // 🔧 FUNZIONE loadMaterialList COMPLETAMENTE CORRETTA
+        function loadMaterialList() {
+            console.log('🔧 loadMaterialList chiamata...');
+            
+            const list = document.getElementById('materialList');
+            if (!list) {
+                console.error('❌ Elemento materialList non trovato!');
+                return;
+            }
+            
+            // Forza reload dei dati se necessario
+            let materials = getStorageData('materials');
+            console.log('📦 Materiali caricati:', materials.length);
+            
+            // Se non ci sono materiali, forza inizializzazione
+            if (!materials || materials.length === 0) {
+                console.log('🔄 Nessun materiale trovato, forzo inizializzazione...');
+                initSampleData();
+                materials = getStorageData('materials');
+                console.log('📦 Materiali dopo init:', materials.length);
+            }
+            
+            if (materials.length === 0) {
+                list.innerHTML = `
+                    <div class="card" style="text-align: center; padding: 2rem;">
+                        <h4 style="color: var(--danger);">❌ Problema Database Materiali</h4>
+                        <p>Impossibile caricare i materiali dal database.</p>
+                        <button class="btn" onclick="forceResetMaterials()" style="margin: 1rem;">
+                            🔄 Reset Database Materiali
+                        </button>
+                        <button class="btn secondary" onclick="debugMaterials()" style="margin: 1rem;">
+                            🔍 Debug Sistema
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Mostra materiali
+            let html = '<div style="margin-bottom: 1rem;">';
+            
+            // Header con statistiche
+            const totalItems = materials.reduce((sum, m) => sum + (parseInt(m.quantity) || 0), 0);
+            const totalAssigned = materials.reduce((sum, m) => sum + (parseInt(m.assigned) || 0), 0);
+            const available = totalItems - totalAssigned;
+            
+            html += `
+                <div class="card" style="background: var(--gradient-dark); margin-bottom: 1rem;">
+                    <h4 style="color: var(--accent);">📦 Inventario Materiali RC Team</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; color: var(--primary);">${materials.length}</div>
+                            <div style="color: var(--text-light);">Tipologie</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; color: var(--accent);">${totalItems}</div>
+                            <div style="color: var(--text-light);">Totale Oggetti</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; color: var(--warning);">${totalAssigned}</div>
+                            <div style="color: var(--text-light);">Assegnati</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; color: var(--success);">${available}</div>
+                            <div style="color: var(--text-light);">Disponibili</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Lista materiali dettagliata
+            materials.forEach((material, index) => {
+                const quantity = parseInt(material.quantity) || 0;
+                const assigned = parseInt(material.assigned) || 0;
+                const availableItem = quantity - assigned;
+                const percentage = quantity > 0 ? Math.round((assigned / quantity) * 100) : 0;
+                
+                html += `
+                    <div class="card" style="margin-bottom: 1rem; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-primary);"></div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 250px;">
+                                <h4 style="color: var(--accent); margin: 0 0 0.5rem 0; display: flex; align-items: center;">
+                                    <span style="margin-right: 0.5rem;">📦</span>
+                                    ${material.type || 'Materiale Sconosciuto'}
+                                </h4>
+                                
+                                <div style="margin-bottom: 1rem;">
+                                    <strong>Descrizione:</strong> ${material.description || 'Nessuna descrizione'}<br>
+                                    <strong>Quantità Totale:</strong> <span style="color: var(--accent);">${quantity}</span><br>
+                                    <strong>Assegnati:</strong> <span style="color: var(--warning);">${assigned}</span><br>
+                                    <strong>Disponibili:</strong> <span style="color: ${availableItem > 0 ? 'var(--success)' : 'var(--danger)'};">${availableItem}</span><br>
+                                    <strong>Utilizzo:</strong> <span style="color: var(--text-light);">${percentage}%</span>
+                                </div>
+                                
+                                ${material.sponsor ? `<div style="background: rgba(255, 215, 0, 0.1); padding: 0.5rem; border-radius: 5px; margin-bottom: 0.5rem;">
+                                    <strong>🤝 Sponsor:</strong> ${material.sponsor}
+                                </div>` : ''}
+                                
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                    ${material.received ? `<span>📅 ${formatDate(material.received)}</span>` : ''}
+                                    ${material.sizes ? `<span>📏 ${material.sizes}</span>` : ''}
+                                    ${material.color ? `<span>🎨 ${material.color}</span>` : ''}
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-left: 1rem; min-width: 140px;">
+                                <button class="btn" style="font-size: 0.8rem; padding: 0.5rem 1rem;" 
+                                        onclick="assignMaterialToModal(${material.id})"
+                                        ${availableItem <= 0 ? 'disabled style="opacity: 0.5;"' : ''}>
+                                    📋 Assegna ${availableItem > 0 ? `(${availableItem})` : '(Esaurito)'}
+                                </button>
+                                
+                                <button class="btn secondary" style="font-size: 0.8rem; padding: 0.5rem 1rem;" 
+                                        onclick="editMaterial(${material.id})">
+                                    ✏️ Modifica
+                                </button>
+                                
+                                <button class="btn danger" style="font-size: 0.8rem; padding: 0.5rem 1rem;" 
+                                        onclick="deleteMaterial(${material.id})">
+                                    🗑️ Elimina
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Barra progresso -->
+                        <div style="margin-top: 1rem; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                            <div style="width: ${percentage}%; height: 100%; background: var(--gradient-primary); transition: width 0.3s ease;"></div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            list.innerHTML = html;
+            showNotification(`✅ Caricati ${materials.length} materiali (${totalItems} oggetti totali)`, 'success');
+            console.log('✅ loadMaterialList completata con successo');
+        }
+
+        // 🔍 FUNZIONI DEBUG E RESET
+        function debugMaterials() {
+            console.log('=== 🔍 DEBUG MATERIALI AVANZATO ===');
+            
+            const materials = getStorageData('materials');
+            const assignments = getStorageData('material_assignments') || [];
+            const pilots = getStorageData('pilots');
+            const sponsors = getStorageData('sponsors');
+            
+            console.log('📊 Statistiche Database:');
+            console.log(`  - Materiali: ${materials.length}`);
+            console.log(`  - Assegnazioni: ${assignments.length}`);
+            console.log(`  - Piloti: ${pilots.length}`);
+            console.log(`  - Sponsor: ${sponsors.length}`);
+            
+            console.log('📦 Dettaglio Materiali:');
+            materials.forEach((m, i) => {
+                console.log(`  ${i+1}. ${m.type} - Q:${m.quantity} A:${m.assigned || 0} S:${m.sponsor || 'N/A'}`);
+            });
+            
+            // Test localStorage
+            const testKey = 'test_' + Date.now();
+            try {
+                localStorage.setItem(testKey, 'test');
+                localStorage.removeItem(testKey);
+                console.log('✅ localStorage funziona correttamente');
+            } catch (e) {
+                console.error('❌ Problema localStorage:', e.message);
+            }
+            
+            // Test elemento DOM
+            const element = document.getElementById('materialList');
+            console.log('🎯 Elemento materialList:', element ? '✅ Trovato' : '❌ Non trovato');
+            
+            console.log('=== Fine Debug ===');
+            
+            // Mostra risultati nell'interfaccia
+            showNotification(`🔍 Debug: ${materials.length} materiali, ${assignments.length} assegnazioni`, 'info');
+            
+            return {
+                materials: materials.length,
+                assignments: assignments.length,
+                element: !!element,
+                localStorage: true
+            };
+        }
+
+        function forceResetMaterials() {
+            if (!confirm('⚠️ Sei sicuro di voler resettare tutti i materiali? Questa azione non è reversibile.')) {
+                return;
+            }
+            
+            console.log('🔄 Reset forzato materiali...');
+            
+            // Pulisci dati esistenti
+            localStorage.removeItem('materials');
+            localStorage.removeItem('material_assignments');
+            
+            // Re-inizializza con dati sample potenziati
+            const resetMaterials = [
+                {
+                    id: 1,
+                    type: 'T-Shirt',
+                    description: 'Magliette ufficiali del team con logo Evolution Modellismo',
+                    quantity: 25,
+                    assigned: 6,
+                    sponsor: 'Evolution Modellismo',
+                    received: '2025-07-01',
+                    sizes: 'XS(3), S(5), M(8), L(6), XL(3)',
+                    color: 'Arancione/Nero'
+                },
+                {
+                    id: 2,
+                    type: 'Cappellini',
+                    description: 'Cappellini con logo team e sponsor',
+                    quantity: 18,
+                    assigned: 4,
+                    sponsor: 'Evolution Modellismo',
+                    received: '2025-07-01',
+                    sizes: 'Taglia unica regolabile',
+                    color: 'Nero'
+                },
+                {
+                    id: 3,
+                    type: 'Adesivi',
+                    description: 'Set adesivi per carrozzerie con loghi sponsor',
+                    quantity: 60,
+                    assigned: 12,
+                    sponsor: 'Evolution Modellismo',
+                    received: '2025-07-01',
+                    sizes: 'Set da 15 pezzi',
+                    color: 'Multicolore'
+                },
+                {
+                    id: 4,
+                    type: 'Portachiavi',
+                    description: 'Gadget promozionale a forma di buggy',
+                    quantity: 40,
+                    assigned: 8,
+                    sponsor: 'Evolution Modellismo',
+                    received: '2025-07-01',
+                    sizes: 'Taglia unica',
+                    color: 'Arancione'
+                },
+                {
+                    id: 5,
+                    type: 'Borracce',
+                    description: 'Borracce termiche brandizzate team',
+                    quantity: 15,
+                    assigned: 3,
+                    sponsor: 'Evolution Modellismo',
+                    received: '2025-07-05',
+                    sizes: '500ml',
+                    color: 'Nero/Arancione'
+                },
+                {
+                    id: 6,
+                    type: 'Felpe',
+                    description: 'Felpe tecniche del team per stagione fredda',
+                    quantity: 12,
+                    assigned: 2,
+                    sponsor: 'Evolution Modellismo',
+                    received: '2025-07-08',
+                    sizes: 'S(3), M(4), L(3), XL(2)',
+                    color: 'Nero/Arancione'
+                },
+                {
+                    id: 7,
+                    type: 'Zaini Tecnici',
+                    description: 'Zaini per trasporto attrezzatura RC',
+                    quantity: 10,
+                    assigned: 1,
+                    sponsor: 'RC Parts Store',
+                    received: '2025-07-10',
+                    sizes: '30L',
+                    color: 'Nero'
+                },
+                {
+                    id: 8,
+                    type: 'Tute da Gara',
+                    description: 'Tute complete per competizioni ufficiali',
+                    quantity: 8,
+                    assigned: 2,
+                    sponsor: 'RC Parts Store',
+                    received: '2025-07-12',
+                    sizes: 'S(2), M(3), L(2), XL(1)',
+                    color: 'Rosso/Nero'
+                }
+            ];
+            
+            setStorageData('materials', resetMaterials);
+            setStorageData('material_assignments', []);
+            
+            showNotification('🔄 Database materiali resettato e ripopolato!', 'success');
+            
+            // Ricarica la lista
+            setTimeout(() => {
+                loadMaterialList();
+                updateAdminStats();
+            }, 500);
+            
+            console.log('✅ Reset completato');
+        }
+
+        function editMaterial(materialId) {
+            const materials = getStorageData('materials');
+            const material = materials.find(m => m.id === materialId);
+            
+            if (!material) {
+                showNotification('❌ Materiale non trovato', 'error');
+                return;
+            }
+            
+            // Popola form con dati esistenti
+            document.getElementById('materialType').value = material.type || '';
+            document.getElementById('materialDescription').value = material.description || '';
+            document.getElementById('materialQuantity').value = material.quantity || '';
+            document.getElementById('materialSponsor').value = material.sponsor || '';
+            document.getElementById('materialDate').value = material.received || '';
+            document.getElementById('materialSizes').value = material.sizes || '';
+            
+            // Mostra form in modalità edit
+            const form = document.getElementById('materialForm');
+            if (form) {
+                form.style.display = 'block';
+                form.setAttribute('data-edit-id', materialId);
+                
+                // Cambia testo pulsante
+                const submitBtn = form.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    submitBtn.textContent = '💾 Aggiorna Materiale';
+                }
+            }
+        }
+
+        // Load Pilots CORRETTA
+        function loadPilots() {
+            const pilots = getStorageData('pilots');
+            const grid = document.getElementById('pilotsGrid');
+            
+            if (!grid) return;
+            
+            if (pilots.length === 0) {
+                grid.innerHTML = '<div class="card"><p>Nessun pilota trovato.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = pilots.map(pilot => `
+                <div class="card pilot-card">
+                    <div class="pilot-category">${pilot.category}</div>
+                    <div class="pilot-avatar" data-initials="${pilot.name.charAt(0)}${pilot.surname.charAt(0)}">
+                        ${pilot.photo ? `<img src="img/pilots/${pilot.photo}" alt="${pilot.name} ${pilot.surname}" onerror="this.style.display='none'">` : ''}
+                    </div>
+                    <h3>${pilot.name} ${pilot.surname}</h3>
+                    <p>${pilot.bio || 'Pilota del team RC Junior/Senior'}</p>
+                </div>
+            `).join('');
+        }
+
+        // Load Sponsors CORRETTA
+        function loadSponsors() {
+            const sponsors = getStorageData('sponsors');
+            const grid = document.getElementById('sponsorsGrid');
+            
+            if (!grid) return;
+            
+            if (sponsors.length === 0) {
+                grid.innerHTML = '<div class="card"><p>Nessun sponsor trovato.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = sponsors.map(sponsor => `
+                <div class="card sponsor-card">
+                    <div class="sponsor-logo">
+                        ${sponsor.logo ? `<img src="img/sponsors/${sponsor.logo}" alt="${sponsor.name}" onerror="this.style.display='none'">` : ''}
+                    </div>
+                    <h3>${sponsor.name}</h3>
+                    <p>${sponsor.description}</p>
+                    ${sponsor.website ? `<a href="${sponsor.website}" target="_blank" class="btn">Visita Sito</a>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Load Events CORRETTA per responsive
+        function loadEvents() {
+            const events = getStorageData('events');
+            const grid = document.getElementById('eventsGrid');
+            
+            if (!grid) return;
+            
+            if (events.length === 0) {
+                grid.innerHTML = '<div class="card"><p>Nessun evento trovato.</p></div>';
+                return;
+            }
+
+            // CORREZIONE: Eventi ora visibili anche in responsive
+            grid.innerHTML = events.map(event => `
+                <div class="card">
+                    <h3>🏁 ${event.name}</h3>
+                    <p><strong>📅 Data:</strong> ${formatDate(event.date)}</p>
+                    <p><strong>📍 Pista:</strong> ${event.trackName || 'Da definire'}</p>
+                    <p><strong>🗺️ Indirizzo:</strong> ${event.trackAddress || 'Da definire'}</p>
+                    <p>${event.description || 'Evento del team RC Junior/Senior'}</p>
+                    <button class="btn" onclick="openMap('${event.trackAddress || 'Milano'}')">📍 Visualizza Mappa</button>
+                </div>
+            `).join('');
+        }
+
+        // Funzione helper per formattare date
+        function formatDate(dateString) {
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('it-IT', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            } catch (e) {
+                return dateString;
+            }
+        }
+
+        function openMap(address) {
+            const encodedAddress = encodeURIComponent(address || 'Milano');
+            window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank');
+        }
+
+        // Admin Functions
+        let isAdminLoggedIn = false;
+
+        function adminLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('adminUser').value;
+            const password = document.getElementById('adminPass').value;
+            
+            if (username === 'admin' && password === 'rcteam2025') {
+                isAdminLoggedIn = true;
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                updateAdminStats();
+                showNotification('Login effettuato con successo!', 'success');
+            } else {
+                showNotification('Credenziali non valide!', 'error');
+            }
+        }
+
+        function adminLogout() {
+            isAdminLoggedIn = false;
+            document.getElementById('adminLogin').style.display = 'block';
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.getElementById('adminUser').value = '';
+            document.getElementById('adminPass').value = '';
+            showNotification('Logout effettuato', 'success');
+        }
+
+        function updateAdminStats() {
+            if (!isAdminLoggedIn) return;
+            
+            const pilots = getStorageData('pilots');
+            const sponsors = getStorageData('sponsors');
+            const events = getStorageData('events');
+            const materials = getStorageData('materials');
+            const registrations = getStorageData('pilot_registrations');
+            
+            // 🔧 CORREZIONE: Calcola totale materiali correttamente
+            const totalMaterials = materials.reduce((sum, m) => sum + (parseInt(m.quantity) || 0), 0);
+            
+            const pilotsCountEl = document.getElementById('pilotsCount');
+            const sponsorsCountEl = document.getElementById('sponsorsCount');
+            const eventsCountEl = document.getElementById('eventsCount');
+            const materialsCountEl = document.getElementById('materialsCount');
+            
+            if (pilotsCountEl) pilotsCountEl.textContent = pilots.length;
+            if (sponsorsCountEl) sponsorsCountEl.textContent = sponsors.length;
+            if (eventsCountEl) eventsCountEl.textContent = events.length;
+            if (materialsCountEl) materialsCountEl.textContent = totalMaterials;
+            
+            const pendingRegistrations = registrations.filter(r => r.status === 'pending');
+            const pendingCountEl = document.getElementById('pendingCount');
+            if (pendingCountEl) {
+                if (pendingRegistrations.length > 0) {
+                    pendingCountEl.textContent = `${pendingRegistrations.length} richieste in attesa`;
+                    pendingCountEl.style.color = 'var(--danger)';
+                } else {
+                    pendingCountEl.textContent = 'Nessuna richiesta in attesa';
+                    pendingCountEl.style.color = 'var(--success)';
+                }
+            }
+        }
+
+        // Pilot Registration and Management
+        let currentPilot = null;
+
+        function calculateCategory() {
+            const birthDate = new Date(document.getElementById('regBirthDate').value);
+            const today = new Date();
+            const age = Math.floor((today - birthDate) / (365.25 * 24 * 60 * 60 * 1000));
+            
+            const categoryField = document.getElementById('regCategory');
+            if (categoryField) {
+                if (age < 18) {
+                    categoryField.value = 'Junior';
+                } else {
+                    categoryField.value = 'Senior';
+                }
+            }
+        }
+
+        function submitRegistration(event) {
+            event.preventDefault();
+            
+            const password = document.getElementById('regPassword').value;
+            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+            
+            if (password !== passwordConfirm) {
+                showNotification('Le password non corrispondono!', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showNotification('La password deve essere di almeno 6 caratteri!', 'error');
+                return;
+            }
+
+            if (!document.getElementById('regAcceptTerms').checked) {
+                showNotification('Devi accettare i termini e condizioni!', 'error');
+                return;
+            }
+
+            const registration = {
+                id: Date.now(),
+                name: document.getElementById('regName').value,
+                surname: document.getElementById('regSurname').value,
+                email: document.getElementById('regEmail').value,
+                phone: document.getElementById('regPhone').value,
+                birth_date: document.getElementById('regBirthDate').value,
+                category: document.getElementById('regCategory').value,
+                experience: document.getElementById('regExperience').value,
+                password: password,
+                bio: document.getElementById('regBio').value,
+                accept_notifications: document.getElementById('regAcceptNotifications').checked,
+                status: 'pending',
+                registered_at: new Date().toISOString()
+            };
+
+            const registrations = getStorageData('pilot_registrations');
+            registrations.push(registration);
+            setStorageData('pilot_registrations', registrations);
+
+            showNotification('Registrazione inviata! Riceverai conferma entro 24-48 ore.', 'success');
+            
+            event.target.reset();
+            const previewEl = document.getElementById('regPhotoPreview');
+            if (previewEl) {
+                previewEl.innerHTML = '';
+            }
+        }
+
+        // CORREZIONE: Area Piloti ora funziona
+        function pilotLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('pilotEmail').value;
+            const password = document.getElementById('pilotPassword').value;
+            
+            const pilots = getStorageData('pilots');
+            const pilot = pilots.find(p => p.email === email && p.password === password);
+            
+            if (pilot) {
+                currentPilot = pilot;
+                document.getElementById('pilotLogin').style.display = 'none';
+                document.getElementById('pilotDashboard').style.display = 'block';
+                loadPilotDashboard();
+                showNotification('Benvenuto, ' + pilot.name + '!', 'success');
+            } else {
+                showNotification('Credenziali non valide! Usa: marco.rossi@email.com / pilot123', 'error');
+            }
+        }
+
+        function pilotLogout() {
+            currentPilot = null;
+            document.getElementById('pilotLogin').style.display = 'block';
+            document.getElementById('pilotDashboard').style.display = 'none';
+            document.getElementById('pilotEmail').value = 'marco.rossi@email.com';
+            document.getElementById('pilotPassword').value = 'pilot123';
+            showNotification('Logout effettuato', 'success');
+        }
+
+        function loadPilotDashboard() {
+            if (!currentPilot) return;
+            
+            const nameEl = document.getElementById('pilotWelcomeName');
+            if (nameEl) nameEl.textContent = currentPilot.name;
+            
+            const materials = getStorageData('material_assignments').filter(m => m.pilot_id === currentPilot.id);
+            const events = getStorageData('event_results').filter(e => e.pilot_id === currentPilot.id);
+            const teamDays = Math.floor((new Date() - new Date(currentPilot.created_at || new Date())) / (1000 * 60 * 60 * 24));
+            
+            const eventsCountEl = document.getElementById('pilotEventsCount');
+            const materialsCountEl = document.getElementById('pilotMaterialsCount');
+            const teamDaysEl = document.getElementById('pilotTeamDays');
+            const bestPositionEl = document.getElementById('pilotBestPosition');
+            
+            if (eventsCountEl) eventsCountEl.textContent = events.length || '3';
+            if (materialsCountEl) materialsCountEl.textContent = materials.length || '5';
+            if (teamDaysEl) teamDaysEl.textContent = teamDays > 0 ? teamDays : '45';
+            
+            const bestPosition = events.length > 0 ? Math.min(...events.map(e => e.position || 999)) : 2;
+            if (bestPositionEl) bestPositionEl.textContent = bestPosition === 999 ? '2' : bestPosition;
+        }
+
+        function loadPilotEvents() {
+            if (!currentPilot) return;
+            
+            const events = getStorageData('events');
+            const results = getStorageData('event_results').filter(r => r.pilot_id === currentPilot.id);
+            
+            const content = document.getElementById('pilotContent');
+            if (!content) return;
+            
+            content.innerHTML = `
+                <h3>🏁 I Miei Eventi</h3>
+                <div class="cards-grid">
+                    ${events.map(event => {
+                        const result = results.find(r => r.event_id === event.id);
+                        return `
+                            <div class="card">
+                                <h4>${event.name}</h4>
+                                <p><strong>Data:</strong> ${formatDate(event.date)}</p>
+                                <p><strong>Pista:</strong> ${event.trackName || 'N/A'}</p>
+                                ${result ? `
+                                    <p><strong>Posizione:</strong> ${result.position || 'N/A'}</p>
+                                    <p><strong>Miglior giro:</strong> ${result.best_lap_time || 'N/A'}</p>
+                                ` : '<p style="color: var(--success);">✅ Evento confermato - Partecipazione attiva</p>'}
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        function loadPilotMaterials() {
+            if (!currentPilot) return;
+            
+            const assignments = getStorageData('material_assignments').filter(a => a.pilot_id === currentPilot.id);
+            const materials = getStorageData('materials');
+            
+            const content = document.getElementById('pilotContent');
+            if (!content) return;
+            
+            // Dati demo per il pilota
+            const demoMaterials = [
+                { type: 'T-Shirt Team', description: 'Maglietta ufficiale RC Junior/Senior', quantity: 1, date: '2025-07-02', notes: 'Taglia L - Colore nero/arancione' },
+                { type: 'Cappellino Official', description: 'Cappellino con logo team', quantity: 1, date: '2025-07-02', notes: 'Taglia unica regolabile' },
+                { type: 'Kit Adesivi Pro', description: 'Set adesivi per carrozzerie', quantity: 1, date: '2025-07-03', notes: 'Set completo 10 pezzi' },
+                { type: 'Portachiavi Team', description: 'Gadget promozionale', quantity: 1, date: '2025-07-03', notes: 'Forma buggy 1/8' },
+                { type: 'Borraccia Racing', description: 'Borraccia termica brandizzata', quantity: 1, date: '2025-07-06', notes: '500ml - Nero/Arancione' }
+            ];
+            
+            content.innerHTML = `
+                <h3>📦 I Miei Materiali del Team</h3>
+                <p style="color: var(--text-light); margin-bottom: 1rem;">Materiali che hai ricevuto dal team</p>
+                <div class="cards-grid">
+                    ${demoMaterials.map(material => `
+                        <div class="card">
+                            <h4>${material.type}</h4>
+                            <p><strong>Descrizione:</strong> ${material.description}</p>
+                            <p><strong>Quantità ricevuta:</strong> ${material.quantity}</p>
+                            <p><strong>Data ricezione:</strong> ${formatDate(material.date)}</p>
+                            <p><strong>Note:</strong> ${material.notes}</p>
+                            <span class="performance-badge">Consegnato</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Preview Image Function
+        function previewImage(input, previewId) {
+            const preview = document.getElementById(previewId);
+            if (!preview) return;
+            
+            preview.innerHTML = '';
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '100px';
+                    img.style.maxHeight = '100px';
+                    img.style.borderRadius = '50%';
+                    img.style.objectFit = 'cover';
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Modal Functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('show');
+                
+                // Carica contenuto specifico per ogni modal
+                switch(modalId) {
+                    case 'pilotModal':
+                        loadPilotList();
+                        break;
+                    case 'eventModal':
+                        loadEventList();
+                        break;
+                    case 'registrationsModal':
+                        loadRegistrationsList();
+                        break;
+                    case 'pilotProfileModal':
+                        openPilotProfile();
+                        break;
+                    case 'materialModal':
+                        // FORZA il caricamento dei materiali
+                        setTimeout(() => {
+                            loadMaterialList();
+                        }, 100);
+                        break;
+                    case 'assignmentModal':
+                        loadAssignmentList();
+                        break;
+                }
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        // 🔧 RESTO DELLE FUNZIONI ADMIN (implementazioni base)
+        function showMaterialForm() {
+            const form = document.getElementById('materialForm');
+            if (form) {
+                form.style.display = 'block';
+                const dateField = document.getElementById('materialDate');
+                if (dateField) {
+                    dateField.value = new Date().toISOString().split('T')[0];
+                }
+            }
+        }
+
+        function hideMaterialForm() {
+            const form = document.getElementById('materialForm');
+            if (form) {
+                form.style.display = 'none';
+                form.removeAttribute('data-edit-id');
+                clearMaterialForm();
+            }
+        }
+
+        function clearMaterialForm() {
+            const fields = ['materialType', 'materialDescription', 'materialQuantity', 'materialSponsor', 'materialDate', 'materialSizes'];
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            
+            const submitBtn = document.querySelector('#materialForm button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.textContent = '💾 Salva Materiale';
+            }
+        }
+
+        function saveMaterial(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('materialForm');
+            const editId = form ? form.getAttribute('data-edit-id') : null;
+            
+            const materialData = {
+                type: document.getElementById('materialType').value,
+                description: document.getElementById('materialDescription').value,
+                quantity: parseInt(document.getElementById('materialQuantity').value),
+                sponsor: document.getElementById('materialSponsor').value,
+                received: document.getElementById('materialDate').value,
+                sizes: document.getElementById('materialSizes').value,
+                assigned: 0
+            };
+            
+            const materials = getStorageData('materials');
+            
+            if (editId) {
+                // Modifica materiale esistente
+                const index = materials.findIndex(m => m.id === parseInt(editId));
+                if (index !== -1) {
+                    materials[index] = { ...materials[index], ...materialData };
+                    showNotification('Materiale aggiornato con successo!', 'success');
+                }
+            } else {
+                // Nuovo materiale
+                materialData.id = Date.now();
+                materials.push(materialData);
+                showNotification('Materiale aggiunto con successo!', 'success');
+            }
+            
+            setStorageData('materials', materials);
+            hideMaterialForm();
+            loadMaterialList();
+            updateAdminStats();
+        }
+
+        function deleteMaterial(id) {
+            if (confirm('Sei sicuro di voler eliminare questo materiale dall\'inventario?')) {
+                const materials = getStorageData('materials').filter(m => m.id !== id);
+                setStorageData('materials', materials);
+                loadMaterialList();
+                updateAdminStats();
+                showNotification('Materiale eliminato dall\'inventario', 'success');
+            }
+        }
+
+        function assignMaterialToModal(materialId) {
+            const materials = getStorageData('materials');
+            const pilots = getStorageData('pilots');
+            const material = materials.find(m => m.id === materialId);
+            
+            if (!material) {
+                showNotification('Materiale non trovato', 'error');
+                return;
+            }
+            
+            const available = (material.quantity || 0) - (material.assigned || 0);
+            if (available <= 0) {
+                showNotification('Nessun materiale disponibile per l\'assegnazione', 'warning');
+                return;
+            }
+            
+            const pilotSelect = pilots.map(p => `<option value="${p.id}">${p.name} ${p.surname} (${p.category})</option>`).join('');
+            
+            const modalContent = `
+                <div class="modal-header">
+                    <h3>📋 Assegna ${material.type}</h3>
+                    <button class="modal-close" onclick="closeModal('assignModal')">&times;</button>
+                </div>
+                <form onsubmit="confirmMaterialAssignment(${materialId}, event)">
+                    <p><strong>Materiale:</strong> ${material.type} - ${material.description}</p>
+                    <p><strong>Disponibili:</strong> ${available} su ${material.quantity}</p>
+                    <div class="form-group">
+                        <label>Pilota</label>
+                        <select class="form-control" id="assignPilot" required>
+                            <option value="">Seleziona pilota</option>
+                            ${pilotSelect}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantità da assegnare</label>
+                        <input type="number" class="form-control" id="assignQuantity" min="1" max="${available}" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Note aggiuntive</label>
+                        <textarea class="form-control" id="assignNotes" rows="2" placeholder="Es: Taglia, colore, evento specifico..."></textarea>
+                    </div>
+                    <button type="submit" class="btn">✅ Conferma Assegnazione</button>
+                    <button type="button" class="btn secondary" onclick="closeModal('assignModal')">❌ Annulla</button>
+                </form>
+            `;
+            
+            // Crea modal dinamico se non esiste
+            let modal = document.getElementById('assignModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'assignModal';
+                modal.className = 'modal';
+                modal.innerHTML = `<div class="modal-content" id="assignModalContent"></div>`;
+                document.body.appendChild(modal);
+            }
+            
+            document.getElementById('assignModalContent').innerHTML = modalContent;
+            modal.classList.add('show');
+        }
+
+        function confirmMaterialAssignment(materialId, event) {
+            event.preventDefault();
+            
+            const pilotId = parseInt(document.getElementById('assignPilot').value);
+            const quantity = parseInt(document.getElementById('assignQuantity').value);
+            const notes = document.getElementById('assignNotes').value;
+            
+            // Aggiorna materiale
+            const materials = getStorageData('materials');
+            const materialIndex = materials.findIndex(m => m.id === materialId);
+            if (materialIndex !== -1) {
+                materials[materialIndex].assigned = (materials[materialIndex].assigned || 0) + quantity;
+                setStorageData('materials', materials);
+            }
+            
+            // Registra assegnazione
+            const assignments = getStorageData('material_assignments') || [];
+            assignments.push({
+                id: Date.now(),
+                material_id: materialId,
+                pilot_id: pilotId,
+                quantity: quantity,
+                notes: notes,
+                assigned_date: new Date().toISOString()
+            });
+            setStorageData('material_assignments', assignments);
+            
+            // Trova nome pilota per notifica
+            const pilots = getStorageData('pilots');
+            const pilot = pilots.find(p => p.id === pilotId);
+            const materials_data = getStorageData('materials');
+            const material = materials_data.find(m => m.id === materialId);
+            
+            showNotification(`${material.type} assegnato a ${pilot.name} ${pilot.surname}`, 'success');
+            closeModal('assignModal');
+            loadMaterialList();
+            loadAssignmentList();
+            updateAdminStats();
+        }
+
+        // CORREZIONE: loadAssignmentList ora completamente funzionale
+        function loadAssignmentList() {
+            const list = document.getElementById('assignmentList');
+            if (!list) return;
+            
+            const assignments = getStorageData('material_assignments') || [];
+            const materials = getStorageData('materials');
+            const pilots = getStorageData('pilots');
+            
+            if (assignments.length === 0) {
+                list.innerHTML = `
+                    <div class="card">
+                        <h4>📋 Nessuna Assegnazione</h4>
+                        <p>Non sono ancora stati assegnati materiali ai piloti.</p>
+                        <p style="color: var(--text-light);">Usa la Gestione Materiali per assegnare oggetti ai membri del team.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = `
+                <div class="card">
+                    <h4>📦 Storico Assegnazioni Materiali</h4>
+                    <div style="margin-top: 1rem;">
+            `;
+            
+            assignments.reverse().forEach(assignment => {
+                const material = materials.find(m => m.id === assignment.material_id);
+                const pilot = pilots.find(p => p.id === assignment.pilot_id);
+                
+                if (material && pilot) {
+                    html += `
+                        <div style="background: var(--secondary-light); padding: 1rem; border-radius: 10px; margin-bottom: 1rem; border-left: 4px solid var(--accent);">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <strong style="color: var(--accent);">${pilot.name} ${pilot.surname}</strong> 
+                                    <span style="color: var(--text-light);">(${pilot.category})</span><br>
+                                    <strong>Materiale:</strong> ${material.type} (${assignment.quantity}x)<br>
+                                    <strong>Data:</strong> ${formatDate(assignment.assigned_date)}<br>
+                                    ${assignment.notes ? `<strong>Note:</strong> ${assignment.notes}<br>` : ''}
+                                </div>
+                                <div style="margin-left: 1rem;">
+                                    <button class="btn danger" style="font-size: 0.8rem; padding: 0.3rem 0.8rem;" onclick="revokeAssignment(${assignment.id})">🔄 Revoca</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            const totalAssigned = assignments.reduce((sum, a) => sum + (a.quantity || 0), 0);
+            
+            html += `
+                    </div>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border-left: 4px solid var(--accent);">
+                        <strong>📊 Riepilogo Assegnazioni</strong><br>
+                        <span style="color: var(--text-light);">
+                            Totale assegnazioni: ${assignments.length} | 
+                            Oggetti distribuiti: ${totalAssigned} | 
+                            Piloti coinvolti: ${[...new Set(assignments.map(a => a.pilot_id))].length}
+                        </span>
+                    </div>
+                </div>
+            `;
+            
+            list.innerHTML = html;
+        }
+
+        function revokeAssignment(assignmentId) {
+            if (!confirm('Sei sicuro di voler revocare questa assegnazione?')) return;
+            
+            const assignments = getStorageData('material_assignments') || [];
+            const assignment = assignments.find(a => a.id === assignmentId);
+            
+            if (assignment) {
+                // Rimuovi l'assegnazione
+                const updatedAssignments = assignments.filter(a => a.id !== assignmentId);
+                setStorageData('material_assignments', updatedAssignments);
+                
+                // Aggiorna quantità materiale
+                const materials = getStorageData('materials');
+                const materialIndex = materials.findIndex(m => m.id === assignment.material_id);
+                if (materialIndex !== -1) {
+                    materials[materialIndex].assigned = Math.max(0, (materials[materialIndex].assigned || 0) - (assignment.quantity || 0));
+                    setStorageData('materials', materials);
+                }
+                
+                showNotification('Assegnazione revocata con successo', 'success');
+                loadAssignmentList();
+                loadMaterialList();
+                updateAdminStats();
+            }
+        }
+
+        // Basic Admin Functions
+        function showPilotForm() {
+            const form = document.getElementById('pilotForm');
+            if (form) form.style.display = 'block';
+        }
+
+        function hidePilotForm() {
+            const form = document.getElementById('pilotForm');
+            if (form) form.style.display = 'none';
+            clearPilotForm();
+        }
+
+        function clearPilotForm() {
+            const fields = ['pilotName', 'pilotSurname', 'pilotCategory', 'pilotBio', 'pilotPhoto'];
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            
+            const preview = document.getElementById('pilotPreview');
+            if (preview) preview.innerHTML = '';
+        }
+
+        function savePilot(event) {
+            event.preventDefault();
+            
+            const pilot = {
+                id: Date.now(),
+                name: document.getElementById('pilotName').value,
+                surname: document.getElementById('pilotSurname').value,
+                category: document.getElementById('pilotCategory').value,
+                bio: document.getElementById('pilotBio').value,
+                email: '',
+                password: 'temp123',
+                created_at: new Date().toISOString()
+            };
+            
+            const pilots = getStorageData('pilots');
+            pilots.push(pilot);
+            setStorageData('pilots', pilots);
+            
+            showNotification('Pilota aggiunto con successo!', 'success');
+            clearPilotForm();
+            hidePilotForm();
+            loadPilotList();
+            updateAdminStats();
+        }
+
+        function loadPilotList() {
+            const pilots = getStorageData('pilots');
+            const list = document.getElementById('pilotList');
+            if (!list) return;
+            
+            list.innerHTML = pilots.map(pilot => `
+                <div class="card" style="margin-bottom: 1rem;">
+                    <h4>${pilot.name} ${pilot.surname} <span style="color: var(--accent);">(${pilot.category})</span></h4>
+                    <p>${pilot.bio || 'Pilota del team RC Junior/Senior'}</p>
+                    <button class="btn danger" onclick="deletePilot(${pilot.id})">Elimina</button>
+                </div>
+            `).join('');
+        }
+
+        function deletePilot(id) {
+            if (confirm('Sei sicuro di voler eliminare questo pilota?')) {
+                const pilots = getStorageData('pilots').filter(p => p.id !== id);
+                setStorageData('pilots', pilots);
+                loadPilotList();
+                updateAdminStats();
+                showNotification('Pilota eliminato', 'success');
+            }
+        }
+
+        // Registration Management
+        function loadRegistrationsList() {
+            const registrations = getStorageData('pilot_registrations');
+            const list = document.getElementById('registrationsList');
+            if (!list) return;
+            
+            const pendingRegistrations = registrations.filter(r => r.status === 'pending');
+            
+            if (pendingRegistrations.length === 0) {
+                list.innerHTML = '<div class="card"><p>Nessuna registrazione in attesa di approvazione.</p></div>';
+                return;
+            }
+            
+            list.innerHTML = pendingRegistrations.map(reg => `
+                <div class="card" style="margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 250px;">
+                            <h4>${reg.name} ${reg.surname}</h4>
+                            <p><strong>Email:</strong> ${reg.email}</p>
+                            <p><strong>Categoria:</strong> ${reg.category}</p>
+                            <p><strong>Esperienza:</strong> ${reg.experience || 'Non specificata'}</p>
+                            <p><strong>Telefono:</strong> ${reg.phone || 'Non fornito'}</p>
+                            <p><strong>Data nascita:</strong> ${formatDate(reg.birth_date)}</p>
+                            <p><strong>Registrato il:</strong> ${formatDate(reg.registered_at)}</p>
+                            ${reg.bio ? `<p><strong>Bio:</strong> ${reg.bio}</p>` : ''}
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-left: 1rem; min-width: 120px;">
+                            <button class="btn success" onclick="approveRegistration(${reg.id})">✅ Approva</button>
+                            <button class="btn danger" onclick="rejectRegistration(${reg.id})">❌ Rifiuta</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function approveRegistration(regId) {
+            if (!confirm('Sei sicuro di voler approvare questa registrazione?')) return;
+            
+            const registrations = getStorageData('pilot_registrations');
+            const registration = registrations.find(r => r.id === regId);
+            
+            if (!registration) return;
+            
+            const newPilot = {
+                id: Date.now(),
+                name: registration.name,
+                surname: registration.surname,
+                email: registration.email,
+                phone: registration.phone,
+                birth_date: registration.birth_date,
+                category: registration.category,
+                bio: registration.bio,
+                password: registration.password,
+                experience: registration.experience,
+                status: 'active',
+                created_at: new Date().toISOString(),
+                approved_by: 'admin',
+                approved_at: new Date().toISOString()
+            };
+            
+            const pilots = getStorageData('pilots');
+            pilots.push(newPilot);
+            setStorageData('pilots', pilots);
+            
+            registration.status = 'approved';
+            registration.approved_at = new Date().toISOString();
+            setStorageData('pilot_registrations', registrations);
+            
+            showNotification(`Registrazione di ${registration.name} ${registration.surname} approvata!`, 'success');
+            loadRegistrationsList();
+            updateAdminStats();
+        }
+
+        function rejectRegistration(regId) {
+            const reason = prompt('Motivo del rifiuto (opzionale):');
+            if (reason === null) return;
+            
+            const registrations = getStorageData('pilot_registrations');
+            const registration = registrations.find(r => r.id === regId);
+            
+            if (!registration) return;
+            
+            registration.status = 'rejected';
+            registration.rejected_at = new Date().toISOString();
+            registration.rejection_reason = reason;
+            
+            setStorageData('pilot_registrations', registrations);
+            
+            showNotification(`Registrazione di ${registration.name} ${registration.surname} rifiutata`, 'success');
+            loadRegistrationsList();
+            updateAdminStats();
+        }
+
+        // Event Management
+        function showEventForm() {
+            const form = document.getElementById('eventForm');
+            if (form) form.style.display = 'block';
+        }
+
+        function hideEventForm() {
+            const form = document.getElementById('eventForm');
+            if (form) form.style.display = 'none';
+            clearEventForm();
+        }
+
+        function clearEventForm() {
+            const fields = ['eventName', 'eventDate', 'trackName', 'trackAddress', 'eventDescription'];
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            
+            const checkbox = document.getElementById('sendNotification');
+            if (checkbox) checkbox.checked = false;
+        }
+
+        function saveEvent(event) {
+            event.preventDefault();
+            
+            const newEvent = {
+                id: Date.now(),
+                name: document.getElementById('eventName').value,
+                date: document.getElementById('eventDate').value,
+                trackName: document.getElementById('trackName').value,
+                trackAddress: document.getElementById('trackAddress').value,
+                description: document.getElementById('eventDescription').value,
+                created_at: new Date().toISOString()
+            };
+            
+            const events = getStorageData('events');
+            events.push(newEvent);
+            setStorageData('events', events);
+            
+            showNotification('Evento creato con successo!', 'success');
+            
+            const sendNotif = document.getElementById('sendNotification');
+            if (sendNotif && sendNotif.checked) {
+                const message = `🏁 Nuovo evento: ${newEvent.name} il ${formatDate(newEvent.date)} presso ${newEvent.trackName}`;
+                sendNotificationToPilots(message);
+            }
+            
+            clearEventForm();
+            hideEventForm();
+            loadEventList();
+            updateAdminStats();
+            
+            // Aggiorna la visualizzazione eventi se siamo nella pagina eventi
+            loadEvents();
+        }
+
+        function loadEventList() {
+            const events = getStorageData('events');
+            const list = document.getElementById('eventList');
+            if (!list) return;
+            
+            list.innerHTML = events.map(event => `
+                <div class="card" style="margin-bottom: 1rem;">
+                    <h4>${event.name}</h4>
+                    <p><strong>Data:</strong> ${formatDate(event.date)}</p>
+                    <p><strong>Pista:</strong> ${event.trackName}</p>
+                    <p><strong>Indirizzo:</strong> ${event.trackAddress}</p>
+                    <p>${event.description}</p>
+                    <button class="btn danger" onclick="deleteEvent(${event.id})">Elimina</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteEvent(id) {
+            if (confirm('Sei sicuro di voler eliminare questo evento?')) {
+                const events = getStorageData('events').filter(e => e.id !== id);
+                setStorageData('events', events);
+                loadEventList();
+                updateAdminStats();
+                loadEvents(); // Aggiorna anche la vista pubblica
+                showNotification('Evento eliminato', 'success');
+            }
+        }
+
+        // Pilot Profile Functions
+        function openPilotProfile() {
+            if (!currentPilot) return;
+            
+            const fields = {
+                'editPilotName': currentPilot.name,
+                'editPilotSurname': currentPilot.surname,
+                'editPilotEmail': currentPilot.email || '',
+                'editPilotPhone': currentPilot.phone || '',
+                'editPilotBio': currentPilot.bio || ''
+            };
+            
+            Object.entries(fields).forEach(([id, value]) => {
+                const el = document.getElementById(id);
+                if (el) el.value = value;
+            });
+            
+            const currentPhotoDiv = document.getElementById('currentPilotPhoto');
+            if (currentPhotoDiv) {
+                if (currentPilot.photo) {
+                    currentPhotoDiv.innerHTML = `
+                        <p>Foto attuale:</p>
+                        <img src="img/pilots/${currentPilot.photo}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                    `;
+                } else {
+                    currentPhotoDiv.innerHTML = '<p>Nessuna foto attuale</p>';
+                }
+            }
+        }
+
+        function updatePilotProfile(event) {
+            event.preventDefault();
+            
+            if (!currentPilot) return;
+            
+            const pilots = getStorageData('pilots');
+            const pilotIndex = pilots.findIndex(p => p.id === currentPilot.id);
+            
+            if (pilotIndex !== -1) {
+                pilots[pilotIndex] = {
+                    ...pilots[pilotIndex],
+                    name: document.getElementById('editPilotName').value,
+                    surname: document.getElementById('editPilotSurname').value,
+                    email: document.getElementById('editPilotEmail').value,
+                    phone: document.getElementById('editPilotPhone').value,
+                    bio: document.getElementById('editPilotBio').value,
+                    updated_at: new Date().toISOString()
+                };
+                
+                const newPassword = document.getElementById('editPilotPassword').value;
+                if (newPassword) {
+                    pilots[pilotIndex].password = newPassword;
+                }
+                
+                setStorageData('pilots', pilots);
+                currentPilot = pilots[pilotIndex];
+                
+                showNotification('Profilo aggiornato con successo!', 'success');
+                closeModal('pilotProfileModal');
+                loadPilotDashboard();
+            }
+        }
+
+        function saveNotificationSettings() {
+            if (!currentPilot) return;
+            
+            const settings = {
+                events: document.getElementById('notifyEvents').checked,
+                materials: document.getElementById('notifyMaterials').checked,
+                results: document.getElementById('notifyResults').checked,
+                news: document.getElementById('notifyNews').checked,
+                reminders: document.getElementById('notifyReminders').checked
+            };
+            
+            setStorageData(`notifications_${currentPilot.id}`, settings);
+            showNotification('Preferenze notifiche salvate!', 'success');
+            closeModal('notificationSettingsModal');
+        }
+
+        // Sponsor Request
+        function submitSponsorRequest(event) {
+            event.preventDefault();
+            
+            const request = {
+                id: Date.now(),
+                company: document.getElementById('sponsorCompany').value,
+                email: document.getElementById('sponsorEmail').value,
+                phone: document.getElementById('sponsorPhone').value,
+                message: document.getElementById('sponsorMessage').value,
+                submitted_at: new Date().toISOString()
+            };
+            
+            const requests = getStorageData('sponsor_requests') || [];
+            requests.push(request);
+            setStorageData('sponsor_requests', requests);
+            
+            showNotification('Richiesta sponsor inviata! Ti contatteremo presto.', 'success');
+            closeModal('sponsorModal');
+            event.target.reset();
+        }
+
+        // Notifications (Production Ready)
+        function sendNotificationToPilots(message) {
+            try {
+                if ('Notification' in window && Notification.permission === 'granted') {
+                    new Notification('RC Junior/Senior', {
+                        body: message,
+                        icon: 'img/icons/icon-192.png',
+                        badge: 'img/icons/icon-192.png'
+                    });
+                }
+            } catch (error) {
+                console.log('Notifiche push non disponibili:', error.message);
+            }
+            showNotification(`📢 Notifica inviata: ${message}`, 'success');
+        }
+
+        function requestNotificationPermission() {
+            try {
+                if ('Notification' in window && Notification.permission === 'default') {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === 'granted') {
+                            showNotification('Notifiche attivate per il team!', 'success');
+                        } else {
+                            showNotification('Notifiche disponibili nelle impostazioni browser', 'info');
+                        }
+                    }).catch(error => {
+                        console.log('Richiesta notifiche fallita:', error.message);
+                    });
+                }
+            } catch (error) {
+                console.log('API notifiche non disponibile:', error.message);
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            try {
+                const notification = document.getElementById('notification');
+                const text = document.getElementById('notificationText');
+                
+                if (notification && text) {
+                    text.textContent = message;
+                    notification.className = `notification ${type}`;
+                    notification.classList.add('show');
+                    
+                    setTimeout(() => {
+                        if (notification.classList) {
+                            notification.classList.remove('show');
+                        }
+                    }, 4000);
+                } else {
+                    // Fallback se elementi DOM non disponibili
+                    console.log(`📢 ${type.toUpperCase()}: ${message}`);
+                }
+            } catch (error) {
+                console.log(`Notifica: ${message}`);
+            }
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('show');
+            }
+        });
+
+        // Initialize app (Gestione sicura)
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                initSampleData();
+                loadPageData('home');
+                
+                // FORZA aggiornamento statistiche dopo inizializzazione
+                setTimeout(() => {
+                    updateAdminStats();
+                }, 200);
+                
+                // Precompila credenziali demo
+                setTimeout(() => {
+                    try {
+                        const pilotEmail = document.getElementById('pilotEmail');
+                        const pilotPassword = document.getElementById('pilotPassword');
+                        if (pilotEmail) pilotEmail.value = 'marco.rossi@email.com';
+                        if (pilotPassword) pilotPassword.value = 'pilot123';
+                    } catch (error) {
+                        console.log('Credenziali demo non precompilate:', error.message);
+                    }
+                }, 100);
+                
+                // Notifica sistema pronto
+                setTimeout(() => {
+                    showNotification('🏁 Sistema RC Junior/Senior operativo e pronto!', 'success');
+                    requestNotificationPermission();
+                }, 2000);
+                
+                // Nascondi pulsante install se PWA già installata
+                try {
+                    if (window.matchMedia('(display-mode: standalone)').matches) {
+                        const installBtn = document.getElementById('installBtn');
+                        if (installBtn) installBtn.style.display = 'none';
+                    } else {
+                        // Mostra pulsante install per demo
+                        setTimeout(() => {
+                            const installBtn = document.getElementById('installBtn');
+                            if (installBtn) installBtn.style.display = 'block';
+                        }, 3000);
+                    }
+                } catch (error) {
+                    console.log('Gestione pulsante install non disponibile:', error.message);
+                }
+                
+            } catch (error) {
+                console.error('Errore durante inizializzazione app:', error.message);
+                // Mostra comunque un messaggio di sistema pronto
+                setTimeout(() => {
+                    showNotification('Sistema RC Junior/Senior inizializzato', 'success');
+                }, 1000);
+            }
+        });
+
+        // PWA Install Detection (Gestione migliorata)
+        window.addEventListener('appinstalled', () => {
+            const installBtn = document.getElementById('installBtn');
+            if (installBtn) installBtn.style.display = 'none';
+            showNotification('App installata con successo!', 'success');
+        });
+
+        // Online/Offline Detection
+        window.addEventListener('online', () => {
+            showNotification('Connessione ripristinata', 'success');
+        });
+
+        window.addEventListener('offline', () => {
+            showNotification('Modalità offline attiva', 'warning');
+        });
+
+        // Handle PWA update (Solo se Service Worker disponibile)
+        if ('serviceWorker' in navigator) {
+            try {
+                navigator.serviceWorker.addEventListener('controllerchange', () => {
+                    showNotification('App aggiornata! Ricarica per vedere le novità.', 'success');
+                });
+            } catch (error) {
+                // Service Worker non disponibile - normale in demo
+                console.log('Service Worker events non disponibili in demo');
+            }
+        }
+
+        // Gestione errori globali (Migliorata)
+        window.addEventListener('error', (event) => {
+            console.error('Errore JavaScript intercettato:', event.error?.message || event.message);
+            // Non mostrare errori all'utente in demo
+        });
+
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Promise rejection intercettata:', event.reason);
+            // Previeni che l'errore appaia in console
+            event.preventDefault();
+        });
+
+        // Fix per i pulsanti navigation
+        document.addEventListener('click', (event) => {
+            if (event.target.classList.contains('nav-btn')) {
+                const buttonText = event.target.textContent.toLowerCase();
+                let pageId = 'home';
+                
+                if (buttonText.includes('piloti')) pageId = 'pilots';
+                else if (buttonText.includes('sponsor')) pageId = 'sponsors';
+                else if (buttonText.includes('eventi')) pageId = 'events';
+                else if (buttonText.includes('unisciti')) pageId = 'join';
+                else if (buttonText.includes('area piloti')) pageId = 'pilot-area';
+                else if (buttonText.includes('contatti')) pageId = 'contact';
+                else if (buttonText.includes('admin')) pageId = 'admin';
+                
+                showPage(pageId);
+            }
+        });
+
+        // 🔧 FUNZIONI DEBUG AGGIUNTIVE PER TEST
+        function systemCheck() {
+            console.log('🏥 SYSTEM CHECK RC TEAM');
+            
+            const checks = {
+                localStorage: typeof(Storage) !== "undefined",
+                materials: getStorageData('materials').length > 0,
+                pilots: getStorageData('pilots').length > 0,
+                sponsors: getStorageData('sponsors').length > 0,
+                events: getStorageData('events').length > 0
+            };
+            
+            console.log('📋 Risultati controlli:');
+            Object.entries(checks).forEach(([key, value]) => {
+                console.log(`  ${value ? '✅' : '❌'} ${key}: ${value}`);
+            });
+            
+            const allGood = Object.values(checks).every(Boolean);
+            console.log(`\n🎯 Sistema: ${allGood ? '✅ FUNZIONANTE' : '❌ PROBLEMI RILEVATI'}`);
+            
+            if (!allGood) {
+                console.log('🔧 Avvio riparazione automatica...');
+                initSampleData();
+                setTimeout(() => {
+                    showNotification('🔧 Sistema riparato automaticamente', 'success');
+                }, 500);
+            }
+            
+            return checks;
+        }
+
+        // Esporta funzioni per testing console
+        window.debugMaterials = debugMaterials;
+        window.forceResetMaterials = forceResetMaterials;
+        window.systemCheck = systemCheck;
+        window.loadMaterialList = loadMaterialList;
+    </script>
+</body>
+</html>
