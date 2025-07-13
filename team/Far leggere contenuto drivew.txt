@@ -1,0 +1,3 @@
+"Leggi tutto nella cartella TeamSeparato su Google Drive"
+"Leggi il file style.css nella cartella TeamSeparato su Google Drive"
+"Cerca index.html nella cartella TeamSeparato su Google Drive"
