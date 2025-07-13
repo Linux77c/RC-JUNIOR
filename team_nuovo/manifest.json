@@ -1,0 +1,83 @@
+{
+  "name": "RC Junior/Senior - Team Buggy 1/8",
+  "short_name": "RC Team",
+  "description": "Team RC Buggy 1/8 Junior e Senior - Passione, formazione e competizione",
+  "start_url": "/team/",
+  "display": "standalone",
+  "background_color": "#0F1419",
+  "theme_color": "#FF2E00",
+  "orientation": "portrait-primary",
+  "scope": "/team/",
+  "lang": "it",
+  "dir": "ltr",
+  "categories": ["sports", "entertainment", "productivity"],
+  "icons": [
+    {
+      "src": "img/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 844'><rect width='390' height='844' fill='%23f8f9fa'/><rect width='390' height='80' fill='url(%23gradient)'/><defs><linearGradient id='gradient'><stop offset='0%' stop-color='%23FF6B35'/><stop offset='100%' stop-color='%23F39C12'/></linearGradient></defs><text x='195' y='120' text-anchor='middle' font-size='24' fill='%23FF6B35'>RC JUNIOR/SENIOR</text><text x='195' y='150' text-anchor='middle' font-size='14' fill='%23666'>Team Buggy 1/8</text></svg>",
+      "sizes": "390x844",
+      "type": "image/svg+xml",
+      "form_factor": "narrow",
+      "label": "Homepage dell'app RC Team"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Piloti",
+      "short_name": "Team",
+      "description": "Visualizza i piloti del team",
+      "url": "/team/?page=pilots",
+      "icons": [
+        {
+          "src": "img/icons/icon-192.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Eventi",
+      "short_name": "Gare",
+      "description": "Visualizza gli eventi e le gare",
+      "url": "/team/?page=events",
+      "icons": [
+        {
+          "src": "img/icons/icon-192.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "short_name": "Gestione",
+      "description": "Area amministrazione",
+      "url": "/team/?page=admin",
+      "icons": [
+        {
+          "src": "img/icons/icon-192.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

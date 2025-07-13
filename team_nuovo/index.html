@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>RC Junior/Senior - Team Buggy 1/8</title>
+    <meta name="description" content="Team RC Buggy 1/8 Junior e Senior - Passione, formazione e competizione">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#FF2E00">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="RC Team">
+    <meta name="msapplication-TileColor" content="#FF2E00">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon e Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="img/icons/icon-512.png">
+    
+    <!-- CSS Files Separati -->
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <!-- Preload per performance -->
+    <link rel="preload" href="assets/js/app.js" as="script">
+    <link rel="preload" href="assets/js/admin.js" as="script">
+    <link rel="preload" href="assets/js/pwa.js" as="script">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">RC</div>
+                <div class="logo-text">
+                    <h1>RC JUNIOR/SENIOR</h1>
+                    <p>Team Buggy 1/8 • Passione & Competizione</p>
+                </div>
+            </div>
+            <nav class="nav-buttons">
+                <button class="nav-btn active" onclick="showPage('home')">Home</button>
+                <button class="nav-btn" onclick="showPage('pilots')">Piloti</button>
+                <button class="nav-btn" onclick="showPage('sponsors')">Sponsor</button>
+                <button class="nav-btn" onclick="showPage('events')">Eventi</button>
+                <button class="nav-btn" onclick="showPage('join')">Unisciti</button>
+                <button class="nav-btn" onclick="showPage('pilot-area')">Area Piloti</button>
+                <button class="nav-btn" onclick="showPage('contact')">Contatti</button>
+                <button class="nav-btn" onclick="showPage('admin')">Admin</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Install Button -->
+    <button class="install-btn" id="installBtn" onclick="installApp()" title="Installa App">📱</button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <section class="hero">
+                <h1>RC JUNIOR/SENIOR</h1>
+                <p>Il team RC Buggy 1/8 che unisce passione, formazione e competizione ad alto livello. Piloti Junior e Senior insieme per dominare le piste più impegnative.</p>
+                <div class="cta-buttons">
+                    <button class="cta-btn" onclick="showPage('pilots')">Scopri il Team</button>
+                    <button class="cta-btn secondary" onclick="showPage('join')">Unisciti al Team</button>
+                </div>
+            </section>
+
+            <div class="cards-grid">
+                <div class="card racing-stripe">
+                    <h3>Prestazioni Extreme</h3>
+                    <p>Squadra di elite specializzata in RC Buggy 1/8 ad alte prestazioni. Setup professionali, tecniche avanzate e strategia vincente per dominare ogni gara.</p>
+                    <span class="performance-badge">High Performance</span>
+                </div>
+                <div class="card racing-stripe">
+                    <h3>Competizione Pro</h3>
+                    <p>Partecipiamo ai campionati più prestigiosi con piloti esperti e giovani talenti. Ogni gara è un'opportunità per dimostrare la nostra superiorità tecnica.</p>
+                    <span class="performance-badge">Racing Team</span>
+                </div>
+                <div class="card racing-stripe">
+                    <h3>Sviluppo Talenti</h3>
+                    <p>Academy di formazione dove i piloti Junior apprendono dai campioni Senior. Metodologie professionali per forgiare i vincitori di domani.</p>
+                    <span class="performance-badge">Academy</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PILOTS PAGE -->
+        <div id="pilots" class="page">
+            <h2>👥 Racing Team Elite</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">I nostri piloti sono l'anima del team RC Junior/Senior. Talenti emergenti e veterani delle competizioni uniti dalla passione per la velocità e la precisione.</p>
+            
+            <div class="cards-grid" id="pilotsGrid">
+                <!-- Pilots will be loaded here -->
+            </div>
+        </div>
+
+        <!-- SPONSORS PAGE -->
+        <div id="sponsors" class="page">
+            <h2>🤝 Partner Tecnici</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">I nostri sponsor sono partner strategici che credono nelle nostre prestazioni. Insieme costruiamo il futuro delle competizioni RC.</p>
+            
+            <div class="cards-grid" id="sponsorsGrid">
+                <!-- Sponsors will be loaded here -->
+            </div>
+
+            <div class="card racing-stripe" style="text-align: center; margin-top: 3rem; background: var(--gradient-dark);">
+                <h3 style="color: var(--accent);">🌟 Diventa Partner Tecnico</h3>
+                <p style="color: var(--text-light);">Unisciti al progetto RC Junior/Senior e ottieni visibilità massima nel mondo delle competizioni!</p>
+                <button class="btn" onclick="openModal('sponsorModal')">🚀 Partnership Elite</button>
+            </div>
+        </div>
+
+        <!-- EVENTS PAGE -->
+        <div id="events" class="page">
+            <h2>🏁 Calendario Competizioni</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">Segui le nostre partecipazioni alle gare più prestigiose e gli eventi di training del team.</p>
+            
+            <div class="cards-grid" id="eventsGrid">
+                <!-- Events will be loaded here -->
+            </div>
+        </div>
+
+        <!-- JOIN TEAM PAGE -->
+        <div id="join" class="page">
+            <h2>🌟 Diventa Parte dell'Elite</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">Hai quello che serve per competere ad alto livello? Unisciti al team RC Junior/Senior e trasforma la tua passione in prestazioni vincenti!</p>
+            
+            <div class="card" style="max-width: 700px; margin: 2rem auto; background: var(--gradient-dark);">
+                <h3 style="color: var(--accent);">📝 Registrazione Team Elite</h3>
+                <div style="background: rgba(255, 215, 0, 0.1); padding: 1rem; border-radius: 10px; margin-bottom: 2rem; border-left: 4px solid var(--accent);">
+                    <strong>⚡ Selezione Rigorosa</strong><br>
+                    <span style="color: var(--text-light);">Il nostro team accetta solo piloti motivati e determinati a crescere nel mondo delle competizioni RC.</span>
+                </div>
+                <form onsubmit="submitRegistration(event)">
+                    <div class="form-group">
+                        <label>Nome *</label>
+                        <input type="text" class="form-control" id="regName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Cognome *</label>
+                        <input type="text" class="form-control" id="regSurname" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" class="form-control" id="regEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono</label>
+                        <input type="tel" class="form-control" id="regPhone">
+                    </div>
+                    <div class="form-group">
+                        <label>Data di Nascita *</label>
+                        <input type="date" class="form-control" id="regBirthDate" required onchange="calculateCategory()">
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <input type="text" class="form-control" id="regCategory" readonly style="background: rgba(255,255,255,0.1);">
+                        <small style="color: var(--text-light);">Calcolata automaticamente dall'età (Junior &lt;18 anni, Senior ≥18 anni)</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Esperienza RC</label>
+                        <select class="form-control" id="regExperience">
+                            <option value="">Seleziona il tuo livello</option>
+                            <option value="principiante">Principiante (0-1 anni)</option>
+                            <option value="intermedio">Intermedio (2-5 anni)</option>
+                            <option value="esperto">Esperto (5+ anni)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Password *</label>
+                        <input type="password" class="form-control" id="regPassword" required minlength="6">
+                        <small style="color: var(--text-light);">Minimo 6 caratteri</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Conferma Password *</label>
+                        <input type="password" class="form-control" id="regPasswordConfirm" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label>Foto Profilo</label>
+                        <input type="file" class="form-control" id="regPhoto" accept="image/*" onchange="previewImage(this, 'regPhotoPreview')">
+                        <div id="regPhotoPreview" style="margin-top: 0.5rem;"></div>
+                        <small style="color: var(--text-light);">Carica una tua foto (opzionale, potrai aggiungerla anche dopo)</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Presentati</label>
+                        <textarea class="form-control" id="regBio" rows="4" placeholder="Raccontaci qualcosa di te, delle tue passioni RC e cosa ti aspetti dal team..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="regAcceptTerms" required>
+                            Accetto i termini e condizioni del team
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="regAcceptNotifications">
+                            Desidero ricevere notifiche su eventi e novità del team
+                        </label>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">🚀 Invia Richiesta di Registrazione</button>
+                </form>
+            </div>
+
+            <div class="cards-grid" style="margin-top: 3rem;">
+                <div class="card racing-stripe">
+                    <h3 style="color: var(--accent);">🎯 Training Intensivo</h3>
+                    <p>Formazione tecnica avanzata, setup professionali, analisi telemetria e metodologie da competizione per massimizzare le prestazioni.</p>
+                    <span class="performance-badge">Pro Training</span>
+                </div>
+                <div class="card racing-stripe">
+                    <h3 style="color: var(--accent);">📚 Academy Elite</h3>
+                    <p>Programma di mentoring dove i piloti Junior apprendono direttamente dai campioni Senior attraverso sessioni pratiche e teoriche.</p>
+                    <span class="performance-badge">Mentorship</span>
+                </div>
+                <div class="card racing-stripe">
+                    <h3 style="color: var(--accent);">🏆 Competizioni Top</h3>
+                    <p>Partecipazione alle gare regionali e nazionali più prestigiose con supporto tecnico completo e strategia di gara professionale.</p>
+                    <span class="performance-badge">Championship</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PILOT AREA PAGE -->
+        <div id="pilot-area" class="page">
+            <div id="pilotLogin" class="admin-login">
+                <h2>🔐 Area Piloti</h2>
+                <p style="text-align: center; margin-bottom: 2rem; color: var(--text-light);">Accedi al tuo profilo personale</p>
+                <form onsubmit="pilotLogin(event)">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" id="pilotEmail" required value="marco.rossi@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" id="pilotPassword" required value="pilot123">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Accedi</button>
+                </form>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <p style="color: var(--text-light);">Non hai un account? <a href="#" onclick="showPage('join')" style="color: var(--primary);">Registrati qui</a></p>
+                    <p style="color: var(--text-light); font-size: 0.8rem; margin-top: 1rem;">Demo: marco.rossi@email.com / pilot123</p>
+                </div>
+            </div>
+
+            <div id="pilotDashboard" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <h2>👋 Benvenuto, <span id="pilotWelcomeName"></span>!</h2>
+                        <p style="color: var(--text-light);">Ecco il tuo dashboard personale</p>
+                    </div>
+                    <button class="btn danger" onclick="pilotLogout()">🚪 Logout</button>
+                </div>
+
+                <div class="admin-dashboard">
+                    <div class="stat-card">
+                        <div class="stat-number" id="pilotEventsCount">0</div>
+                        <div class="stat-label">Eventi Partecipati</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pilotMaterialsCount">0</div>
+                        <div class="stat-label">Materiali Ricevuti</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pilotBestPosition">-</div>
+                        <div class="stat-label">Miglior Posizione</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pilotTeamDays">0</div>
+                        <div class="stat-label">Giorni nel Team</div>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>👤 Il Mio Profilo</h3>
+                        <p>Gestisci i tuoi dati personali, foto e informazioni</p>
+                        <button class="btn" onclick="openModal('pilotProfileModal')">Modifica Profilo</button>
+                    </div>
+                    <div class="card">
+                        <h3>🏁 I Miei Eventi</h3>
+                        <p>Visualizza gli eventi a cui hai partecipato e i risultati</p>
+                        <button class="btn" onclick="loadPilotEvents()">Vedi Eventi</button>
+                    </div>
+                    <div class="card">
+                        <h3>📦 I Miei Materiali</h3>
+                        <p>Materiali del team che hai ricevuto</p>
+                        <button class="btn" onclick="loadPilotMaterials()">Vedi Materiali</button>
+                    </div>
+                    <div class="card">
+                        <h3>🔔 Notifiche</h3>
+                        <p>Gestisci le tue preferenze di notifica</p>
+                        <button class="btn" onclick="openModal('notificationSettingsModal')">Impostazioni</button>
+                    </div>
+                </div>
+
+                <div id="pilotContent" style="margin-top: 2rem;">
+                    <!-- Contenuto dinamico area pilota -->
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="contact" class="page">
+            <h2>📞 Contatti</h2>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>📧 Email</h3>
+                    <p>l3drc@altervista.org</p>
+                </div>
+                <div class="card">
+                    <h3>🌐 Website</h3>
+                    <p>https://l3drc.altervista.org/</p>
+                </div>
+                <div class="card">
+                    <h3>📱 Social</h3>
+                    <p>Seguici sui nostri canali social per tutti gli aggiornamenti!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN PAGE -->
+        <div id="admin" class="page">
+            <div id="adminLogin" class="admin-login">
+                <h2>🔐 Area Admin</h2>
+                <form onsubmit="adminLogin(event)">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" id="adminUser" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" id="adminPass" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Accedi</button>
+                </form>
+                <p style="text-align: center; margin-top: 1rem; color: var(--text-light); font-size: 0.8rem;">
+                    Demo: admin / rcteam2025
+                </p>
+            </div>
+
+            <div id="adminDashboard" style="display: none;">
+                <h2>📊 Dashboard Admin</h2>
+                
+                <div class="admin-dashboard">
+                    <div class="stat-card">
+                        <div class="stat-number" id="pilotsCount">0</div>
+                        <div class="stat-label">Piloti</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="sponsorsCount">0</div>
+                        <div class="stat-label">Sponsor</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="eventsCount">0</div>
+                        <div class="stat-label">Eventi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="materialsCount">0</div>
+                        <div class="stat-label">Materiali</div>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>👥 Gestione Piloti</h3>
+                        <p>Aggiungi, modifica e gestisci i piloti del team</p>
+                        <button class="btn" onclick="openModal('pilotModal')">Gestisci Piloti</button>
+                    </div>
+                    <div class="card">
+                        <h3>📝 Nuove Registrazioni</h3>
+                        <p>Approva o rifiuta le richieste di registrazione</p>
+                        <button class="btn" onclick="openModal('registrationsModal')">Gestisci Registrazioni</button>
+                        <div id="pendingCount" style="margin-top: 0.5rem; color: var(--accent); font-weight: bold;"></div>
+                    </div>
+                    <div class="card">
+                        <h3>🤝 Gestione Sponsor</h3>
+                        <p>Amministra i sponsor e i loro materiali</p>
+                        <button class="btn" onclick="openModal('sponsorManageModal')">Gestisci Sponsor</button>
+                    </div>
+                    <div class="card">
+                        <h3>🏁 Gestione Eventi</h3>
+                        <p>Crea eventi e invia notifiche ai piloti</p>
+                        <button class="btn" onclick="openModal('eventModal')">Gestisci Eventi</button>
+                    </div>
+                    <div class="card">
+                        <h3>📦 Gestione Materiali</h3>
+                        <p>Gestisci l'inventario completo del team</p>
+                        <button class="btn" onclick="openModal('materialModal')">Gestisci Materiali</button>
+                    </div>
+                    <div class="card">
+                        <h3>📋 Assegnazioni Materiali</h3>
+                        <p>Visualizza e gestisci assegnazioni ai piloti</p>
+                        <button class="btn" onclick="openModal('assignmentModal')">Vedi Assegnazioni</button>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn danger" onclick="adminLogout()">🚪 Logout</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODALS -->
+    
+    <!-- Sponsor Contact Modal -->
+    <div id="sponsorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🌟 Diventa Sponsor</h3>
+                <button class="modal-close" onclick="closeModal('sponsorModal')">&times;</button>
+            </div>
+            <form onsubmit="submitSponsorRequest(event)">
+                <div class="form-group">
+                    <label>Nome Azienda</label>
+                    <input type="text" class="form-control" id="sponsorCompany" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="sponsorEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefono</label>
+                    <input type="tel" class="form-control" id="sponsorPhone">
+                </div>
+                <div class="form-group">
+                    <label>Messaggio</label>
+                    <textarea class="form-control" id="sponsorMessage" rows="4" placeholder="Descrivi la tua proposta di sponsorship"></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Invia Richiesta</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pilot Management Modal -->
+    <div id="pilotModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>👥 Gestione Piloti</h3>
+                <button class="modal-close" onclick="closeModal('pilotModal')">&times;</button>
+            </div>
+            <button class="btn" onclick="showPilotForm()" style="margin-bottom: 1rem;">+ Aggiungi Pilota</button>
+            <div id="pilotList"></div>
+            
+            <div id="pilotForm" style="display: none; margin-top: 1rem;">
+                <h4>Nuovo Pilota</h4>
+                <form onsubmit="savePilot(event)">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" class="form-control" id="pilotName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Cognome</label>
+                        <input type="text" class="form-control" id="pilotSurname" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select class="form-control" id="pilotCategory" required>
+                            <option value="">Seleziona categoria</option>
+                            <option value="Junior">Junior</option>
+                            <option value="Senior">Senior</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea class="form-control" id="pilotBio" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Foto Profilo</label>
+                        <input type="file" class="form-control" id="pilotPhoto" accept="image/*" onchange="previewImage(this, 'pilotPreview')">
+                        <div id="pilotPreview" style="margin-top: 0.5rem;"></div>
+                        <small style="color: var(--text-light);">Carica un'immagine per il profilo del pilota (JPG, PNG)</small>
+                    </div>
+                    <button type="submit" class="btn">Salva Pilota</button>
+                    <button type="button" class="btn danger" onclick="hidePilotForm()">Annulla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registrations Management Modal -->
+    <div id="registrationsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📝 Gestione Registrazioni</h3>
+                <button class="modal-close" onclick="closeModal('registrationsModal')">&times;</button>
+            </div>
+            <div id="registrationsList"></div>
+        </div>
+    </div>
+
+    <!-- Sponsor Management Modal -->
+    <div id="sponsorManageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🤝 Gestione Sponsor</h3>
+                <button class="modal-close" onclick="closeModal('sponsorManageModal')">&times;</button>
+            </div>
+            <div id="sponsorManageList">
+                <!-- Contenuto caricato dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Management Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🏁 Gestione Eventi</h3>
+                <button class="modal-close" onclick="closeModal('eventModal')">&times;</button>
+            </div>
+            <button class="btn" onclick="showEventForm()" style="margin-bottom: 1rem;">+ Nuovo Evento</button>
+            <div id="eventList"></div>
+            
+            <div id="eventForm" style="display: none; margin-top: 1rem;">
+                <h4>Nuovo Evento</h4>
+                <form onsubmit="saveEvent(event)">
+                    <div class="form-group">
+                        <label>Nome Evento</label>
+                        <input type="text" class="form-control" id="eventName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Data</label>
+                        <input type="date" class="form-control" id="eventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nome Pista</label>
+                        <input type="text" class="form-control" id="trackName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Indirizzo Pista</label>
+                        <input type="text" class="form-control" id="trackAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrizione</label>
+                        <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="sendNotification"> Invia notifica ai piloti
+                        </label>
+                    </div>
+                    <button type="submit" class="btn">Salva Evento</button>
+                    <button type="button" class="btn danger" onclick="hideEventForm()">Annulla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Material Management Modal -->
+    <div id="materialModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📦 Gestione Materiali Team</h3>
+                <button class="modal-close" onclick="closeModal('materialModal')">&times;</button>
+            </div>
+            <button class="btn" onclick="showMaterialForm()" style="margin-bottom: 1rem;">+ Aggiungi Materiale</button>
+            <div id="materialList">
+                <!-- Contenuto caricato dinamicamente -->
+            </div>
+            
+            <div id="materialForm" style="display: none; margin-top: 1rem;">
+                <h4>Nuovo Materiale</h4>
+                <form onsubmit="saveMaterial(event)">
+                    <div class="form-group">
+                        <label>Tipologia</label>
+                        <select class="form-control" id="materialType" required>
+                            <option value="">Seleziona tipologia</option>
+                            <option value="T-Shirt">T-Shirt</option>
+                            <option value="Cappellino">Cappellino</option>
+                            <option value="Felpa">Felpa</option>
+                            <option value="Giacca">Giacca</option>
+                            <option value="Adesivi">Adesivi</option>
+                            <option value="Portachiavi">Portachiavi</option>
+                            <option value="Borraccia">Borraccia</option>
+                            <option value="Zaino">Zaino</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrizione</label>
+                        <textarea class="form-control" id="materialDescription" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantità Ricevuta</label>
+                        <input type="number" class="form-control" id="materialQuantity" required min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Sponsor</label>
+                        <select class="form-control" id="materialSponsor">
+                            <option value="">Seleziona sponsor</option>
+                            <option value="Evolution Modellismo">Evolution Modellismo</option>
+                            <option value="RC Parts Store">RC Parts Store</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Data Ricezione</label>
+                        <input type="date" class="form-control" id="materialDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Informazioni Taglie/Colori</label>
+                        <input type="text" class="form-control" id="materialSizes" placeholder="es. S(2), M(5), L(3) - Nero">
+                    </div>
+                    <button type="submit" class="btn">💾 Salva Materiale</button>
+                    <button type="button" class="btn danger" onclick="hideMaterialForm()">❌ Annulla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Material Assignment Modal -->
+    <div id="assignmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📋 Assegnazioni Materiali</h3>
+                <button class="modal-close" onclick="closeModal('assignmentModal')">&times;</button>
+            </div>
+            <div id="assignmentList">
+                <!-- Contenuto caricato dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Pilot Profile Modal -->
+    <div id="pilotProfileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>👤 Modifica Profilo</h3>
+                <button class="modal-close" onclick="closeModal('pilotProfileModal')">&times;</button>
+            </div>
+            <form onsubmit="updatePilotProfile(event)">
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" class="form-control" id="editPilotName" required>
+                </div>
+                <div class="form-group">
+                    <label>Cognome</label>
+                    <input type="text" class="form-control" id="editPilotSurname" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="editPilotEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefono</label>
+                    <input type="tel" class="form-control" id="editPilotPhone">
+                </div>
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea class="form-control" id="editPilotBio" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Nuova Foto Profilo</label>
+                    <input type="file" class="form-control" id="editPilotPhoto" accept="image/*" onchange="previewImage(this, 'editPilotPhotoPreview')">
+                    <div id="editPilotPhotoPreview" style="margin-top: 0.5rem;"></div>
+                    <div id="currentPilotPhoto" style="margin-top: 0.5rem;"></div>
+                </div>
+                <div class="form-group">
+                    <label>Cambia Password</label>
+                    <input type="password" class="form-control" id="editPilotPassword" placeholder="Lascia vuoto per non modificare">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">💾 Salva Modifiche</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Settings Modal -->
+    <div id="notificationSettingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🔔 Impostazioni Notifiche</h3>
+                <button class="modal-close" onclick="closeModal('notificationSettingsModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="notifyEvents" checked> 
+                    Notifiche per nuovi eventi del team
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="notifyMaterials" checked> 
+                    Notifiche per nuovi materiali disponibili
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="notifyResults" checked> 
+                    Notifiche per risultati gare
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="notifyNews" checked> 
+                    Notifiche per news del team
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="notifyReminders"> 
+                    Promemoria eventi (24h prima)
+                </label>
+            </div>
+            <button class="btn" onclick="saveNotificationSettings()" style="width: 100%;">💾 Salva Preferenze</button>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <div id="notificationText"></div>
+    </div>
+
+    <!-- JavaScript Files Separati -->
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/admin.js"></script>
+    <script src="assets/js/pwa.js"></script>
+    
+    <!-- Funzioni mancanti incluse inline per compatibilità -->
+    <script>
+        // Funzioni piloti area
+        function pilotLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('pilotEmail').value;
+            const password = document.getElementById('pilotPassword').value;
+            
+            const pilots = getStorageData('pilots');
+            const pilot = pilots.find(p => p.email === email && p.password === password);
+            
+            if (pilot) {
+                currentPilot = pilot;
+                document.getElementById('pilotLogin').style.display = 'none';
+                document.getElementById('pilotDashboard').style.display = 'block';
+                loadPilotDashboard();
+                showNotification('Benvenuto, ' + pilot.name + '!', 'success');
+            } else {
+                showNotification('Credenziali non valide! Usa: marco.rossi@email.com / pilot123', 'error');
+            }
+        }
+
+        function pilotLogout() {
+            currentPilot = null;
+            document.getElementById('pilotLogin').style.display = 'block';
+            document.getElementById('pilotDashboard').style.display = 'none';
+            document.getElementById('pilotEmail').value = 'marco.rossi@email.com';
+            document.getElementById('pilotPassword').value = 'pilot123';
+            showNotification('Logout effettuato', 'success');
+        }
+
+        function loadPilotDashboard() {
+            if (!currentPilot) return;
+            
+            const nameEl = document.getElementById('pilotWelcomeName');
+            if (nameEl) nameEl.textContent = currentPilot.name;
+            
+            // Statistiche demo
+            const eventsCountEl = document.getElementById('pilotEventsCount');
+            const materialsCountEl = document.getElementById('pilotMaterialsCount');
+            const teamDaysEl = document.getElementById('pilotTeamDays');
+            const bestPositionEl = document.getElementById('pilotBestPosition');
+            
+            if (eventsCountEl) eventsCountEl.textContent = '3';
+            if (materialsCountEl) materialsCountEl.textContent = '5';
+            if (teamDaysEl) teamDaysEl.textContent = '45';
+            if (bestPositionEl) bestPositionEl.textContent = '2';
+        }
+
+        function loadPilotEvents() {
+            if (!currentPilot) return;
+            
+            const content = document.getElementById('pilotContent');
+            if (!content) return;
+            
+            content.innerHTML = `
+                <h3>🏁 I Miei Eventi</h3>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h4>Gara Regionale Buggy 1/8</h4>
+                        <p><strong>Data:</strong> 20 luglio 2025</p>
+                        <p><strong>Pista:</strong> Pista RC Milano</p>
+                        <p><strong>Posizione:</strong> 2°</p>
+                        <p><strong>Miglior giro:</strong> 1:45.32</p>
+                    </div>
+                    <div class="card">
+                        <h4>Allenamento Collettivo</h4>
+                        <p><strong>Data:</strong> 25 luglio 2025</p>
+                        <p><strong>Pista:</strong> Pista RC Monza</p>
+                        <p style="color: var(--success);">✅ Partecipazione confermata</p>
+                    </div>
+                    <div class="card">
+                        <h4>Campionato Regionale</h4>
+                        <p><strong>Data:</strong> 15 agosto 2025</p>
+                        <p><strong>Pista:</strong> RC Park Bergamo</p>
+                        <p style="color: var(--primary);">🏁 Prossimo evento</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function loadPilotMaterials() {
+            if (!currentPilot) return;
+            
+            const content = document.getElementById('pilotContent');
+            if (!content) return;
+            
+            const demoMaterials = [
+                { type: 'T-Shirt Team', description: 'Maglietta ufficiale RC Junior/Senior', quantity: 1, date: '2025-07-02', notes: 'Taglia L - Colore nero/arancione' },
+                { type: 'Cappellino Official', description: 'Cappellino con logo team', quantity: 1, date: '2025-07-02', notes: 'Taglia unica regolabile' },
+                { type: 'Kit Adesivi Pro', description: 'Set adesivi per carrozzerie', quantity: 1, date: '2025-07-03', notes: 'Set completo 10 pezzi' },
+                { type: 'Portachiavi Team', description: 'Gadget promozionale', quantity: 1, date: '2025-07-03', notes: 'Forma buggy 1/8' },
+                { type: 'Borraccia Racing', description: 'Borraccia termica brandizzata', quantity: 1, date: '2025-07-06', notes: '500ml - Nero/Arancione' }
+            ];
+            
+            content.innerHTML = `
+                <h3>📦 I Miei Materiali del Team</h3>
+                <p style="color: var(--text-light); margin-bottom: 1rem;">Materiali che hai ricevuto dal team</p>
+                <div class="cards-grid">
+                    ${demoMaterials.map(material => `
+                        <div class="card">
+                            <h4>${material.type}</h4>
+                            <p><strong>Descrizione:</strong> ${material.description}</p>
+                            <p><strong>Quantità ricevuta:</strong> ${material.quantity}</p>
+                            <p><strong>Data ricezione:</strong> ${formatDate(material.date)}</p>
+                            <p><strong>Note:</strong> ${material.notes}</p>
+                            <span class="performance-badge">Consegnato</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function openPilotProfile() {
+            if (!currentPilot) return;
+            
+            const fields = {
+                'editPilotName': currentPilot.name,
+                'editPilotSurname': currentPilot.surname,
+                'editPilotEmail': currentPilot.email || '',
+                'editPilotPhone': currentPilot.phone || '',
+                'editPilotBio': currentPilot.bio || ''
+            };
+            
+            Object.entries(fields).forEach(([id, value]) => {
+                const el = document.getElementById(id);
+                if (el) el.value = value;
+            });
+        }
+
+        function updatePilotProfile(event) {
+            event.preventDefault();
+            showNotification('Profilo aggiornato con successo!', 'success');
+            closeModal('pilotProfileModal');
+        }
+
+        function saveNotificationSettings() {
+            showNotification('Preferenze notifiche salvate!', 'success');
+            closeModal('notificationSettingsModal');
+        }
+
+        // Funzioni materiali (versioni base per compatibilità)
+        function loadMaterialList() {
+            const list = document.getElementById('materialList');
+            if (!list) return;
+            
+            const materials = getStorageData('materials');
+            
+            if (materials.length === 0) {
+                list.innerHTML = '<div class="card"><p>Nessun materiale nel sistema.</p></div>';
+                return;
+            }
+
+            list.innerHTML = materials.map(material => `
+                <div class="card" style="margin-bottom: 1rem;">
+                    <h4>${material.type}</h4>
+                    <p><strong>Descrizione:</strong> ${material.description}</p>
+                    <p><strong>Quantità:</strong> ${material.quantity}</p>
+                    <p><strong>Assegnati:</strong> ${material.assigned || 0}</p>
+                    <p><strong>Disponibili:</strong> ${(material.quantity || 0) - (material.assigned || 0)}</p>
+                    <p><strong>Sponsor:</strong> ${material.sponsor}</p>
+                </div>
+            `).join('');
+        }
+
+        function showMaterialForm() {
+            const form = document.getElementById('materialForm');
+            if (form) {
+                form.style.display = 'block';
+                const dateField = document.getElementById('materialDate');
+                if (dateField) {
+                    dateField.value = new Date().toISOString().split('T')[0];
+                }
+            }
+        }
+
+        function hideMaterialForm() {
+            const form = document.getElementById('materialForm');
+            if (form) form.style.display = 'none';
+        }
+
+        function saveMaterial(event) {
+            event.preventDefault();
+            
+            const material = {
+                id: Date.now(),
+                type: document.getElementById('materialType').value,
+                description: document.getElementById('materialDescription').value,
+                quantity: parseInt(document.getElementById('materialQuantity').value),
+                sponsor: document.getElementById('materialSponsor').value,
+                received: document.getElementById('materialDate').value,
+                sizes: document.getElementById('materialSizes').value,
+                assigned: 0
+            };
+            
+            const materials = getStorageData('materials');
+            materials.push(material);
+            setStorageData('materials', materials);
+            
+            showNotification('Materiale aggiunto con successo!', 'success');
+            hideMaterialForm();
+            loadMaterialList();
+            updateAdminStats();
+        }
+
+        function loadAssignmentList() {
+            const list = document.getElementById('assignmentList');
+            if (!list) return;
+            
+            list.innerHTML = `
+                <div class="card">
+                    <h4>📋 Assegnazioni Materiali</h4>
+                    <p>Sistema di tracciamento assegnazioni in fase di sviluppo.</p>
+                    <p style="color: var(--text-light);">Le assegnazioni verranno visualizzate qui una volta implementate.</p>
+                </div>
+            `;
+        }
+    </script>
+	<!-- API Integration -->
+<script>
+// Configurazione API
+const API_URL = 'https://l3drc.altervista.org/team/api.php';
+const USE_API = true; // Usa il database reale
+
+// Funzione helper per chiamate API
+async function callAPI(action, data = {}, method = 'GET') {
+    try {
+        let url = API_URL;
+        const options = {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+
+        if (method === 'GET') {
+            const params = new URLSearchParams({ action, ...data });
+            url += '?' + params.toString();
+        } else {
+            options.body = JSON.stringify({ action, ...data });
+        }
+
+        const response = await fetch(url, options);
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('API Error:', error);
+        return { error: error.message };
+    }
+}
+
+// Override delle funzioni di caricamento dati
+if (USE_API) {
+    console.log('🔌 Connessione al database attiva');
+
+    // Carica Piloti dal database
+    window.loadPilots = async function() {
+        console.log('📥 Caricamento piloti da API...');
+        const result = await callAPI('get_pilots');
+        const grid = document.getElementById('pilotsGrid');
+        
+        if (!grid) return;
+        
+        if (result.error || !result.success) {
+            console.warn('Errore API, uso dati locali');
+            // Fallback ai dati locali
+            const pilots = getStorageData('pilots');
+            renderPilots(pilots);
+            return;
+        }
+        
+        const pilots = result.data || [];
+        console.log(`✅ Caricati ${pilots.length} piloti dal database`);
+        
+        if (pilots.length === 0) {
+            grid.innerHTML = '<div class="card"><p>Nessun pilota trovato nel database.</p></div>';
+            return;
+        }
+
+        grid.innerHTML = pilots.map(pilot => `
+            <div class="card pilot-card">
+                <div class="pilot-category">${pilot.category}</div>
+                <div class="pilot-avatar" data-initials="${pilot.name.charAt(0)}${pilot.surname.charAt(0)}">
+                    ${pilot.photo ? `<img src="img/pilots/${pilot.photo}" alt="${pilot.name} ${pilot.surname}" onerror="this.style.display='none'">` : ''}
+                </div>
+                <h3>${pilot.name} ${pilot.surname}</h3>
+                <p>${pilot.bio || 'Pilota del team RC Junior/Senior'}</p>
+                ${pilot.social ? `<p><small>📱 ${pilot.social}</small></p>` : ''}
+            </div>
+        `).join('');
+    };
+
+    // Carica Sponsor dal database
+    window.loadSponsors = async function() {
+        console.log('📥 Caricamento sponsor da API...');
+        const result = await callAPI('get_sponsors');
+        const grid = document.getElementById('sponsorsGrid');
+        
+        if (!grid) return;
+        
+        if (result.error || !result.success) {
+            console.warn('Errore API, uso dati locali');
+            const sponsors = getStorageData('sponsors');
+            renderSponsors(sponsors);
+            return;
+        }
+        
+        const sponsors = result.data || [];
+        console.log(`✅ Caricati ${sponsors.length} sponsor dal database`);
+        
+        if (sponsors.length === 0) {
+            grid.innerHTML = '<div class="card"><p>Nessuno sponsor trovato nel database.</p></div>';
+            return;
+        }
+
+        grid.innerHTML = sponsors.map(sponsor => `
+            <div class="card sponsor-card">
+                <div class="sponsor-logo">
+                    ${sponsor.logo ? `<img src="img/sponsors/${sponsor.logo}" alt="${sponsor.name}" onerror="this.style.display='none'">` : ''}
+                </div>
+                <h3>${sponsor.name}</h3>
+                <p>${sponsor.description || ''}</p>
+                ${sponsor.email ? `<p><small>📧 ${sponsor.email}</small></p>` : ''}
+                ${sponsor.website ? `<a href="${sponsor.website}" target="_blank" class="btn">Visita Sito</a>` : ''}
+            </div>
+        `).join('');
+    };
+
+    // Carica Eventi dal database
+    window.loadEvents = async function() {
+        console.log('📥 Caricamento eventi da API...');
+        const result = await callAPI('get_events');
+        const grid = document.getElementById('eventsGrid');
+        
+        if (!grid) return;
+        
+        if (result.error || !result.success) {
+            console.warn('Errore API, uso dati locali');
+            const events = getStorageData('events');
+            renderEvents(events);
+            return;
+        }
+        
+        const events = result.data || [];
+        console.log(`✅ Caricati ${events.length} eventi dal database`);
+        
+        if (events.length === 0) {
+            grid.innerHTML = '<div class="card"><p>Nessun evento trovato nel database.</p></div>';
+            return;
+        }
+
+        const eventsHTML = events.map(event => {
+            // Formatta tipo evento
+            const eventTypeIcons = {
+                'gara': '🏁',
+                'allenamento': '🏋️',
+                'demo': '🎪',
+                'meeting': '🤝'
+            };
+            const icon = eventTypeIcons[event.event_type] || '📅';
+            
+            return `
+                <div class="card" style="display: block !important; visibility: visible !important; opacity: 1 !important;">
+                    <h3>${icon} ${event.name}</h3>
+                    <p><strong>📅 Data:</strong> ${formatDate(event.event_date)}</p>
+                    ${event.event_time ? `<p><strong>⏰ Ora:</strong> ${event.event_time}</p>` : ''}
+                    <p><strong>📍 Pista:</strong> ${event.track_name || 'Da definire'}</p>
+                    <p><strong>🗺️ Indirizzo:</strong> ${event.track_address || 'Da definire'}</p>
+                    ${event.track_city ? `<p><strong>🏙️ Città:</strong> ${event.track_city}</p>` : ''}
+                    ${event.category ? `<p><strong>🏷️ Categoria:</strong> ${event.category}</p>` : ''}
+                    <p>${event.description || 'Evento del team RC Junior/Senior'}</p>
+                    <button class="btn" onclick="openMap('${event.track_address || 'Milano'}')">📍 Visualizza Mappa</button>
+                    ${event.registration_url ? `<a href="${event.registration_url}" target="_blank" class="btn">📝 Iscrizioni</a>` : ''}
+                </div>
+            `;
+        }).join('');
+        
+        grid.innerHTML = eventsHTML;
+        
+        // Forza visibilità per responsive
+        grid.style.display = 'grid';
+        grid.style.visibility = 'visible';
+        grid.style.opacity = '1';
+        
+        setTimeout(() => {
+            grid.querySelectorAll('.card').forEach(card => {
+                card.style.display = 'block';
+                card.style.visibility = 'visible';
+                card.style.opacity = '1';
+            });
+        }, 50);
+    };
+
+    // Override anche per admin login con API
+    window.adminLogin = async function(event) {
+        event.preventDefault();
+        const username = document.getElementById('adminUser').value;
+        const password = document.getElementById('adminPass').value;
+        
+        // Prima prova con l'API
+        const result = await callAPI('login', { username, password }, 'POST');
+        
+        if (result.success) {
+            isAdminLoggedIn = true;
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            updateAdminStats();
+            showNotification('Login admin effettuato con successo!', 'success');
+        } else {
+            // Fallback alle credenziali locali per demo
+            if (username === 'admin' && password === 'rcteam2025') {
+                isAdminLoggedIn = true;
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                updateAdminStats();
+                showNotification('Login admin effettuato (modalità demo)!', 'success');
+            } else {
+                showNotification('Credenziali non valide!', 'error');
+            }
+        }
+    };
+
+    // Gestione registrazione piloti con API
+    window.submitRegistration = async function(event) {
+        event.preventDefault();
+        
+        const password = document.getElementById('regPassword').value;
+        const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+        
+        if (password !== passwordConfirm) {
+            showNotification('Le password non corrispondono!', 'error');
+            return;
+        }
+
+        if (password.length < 6) {
+            showNotification('La password deve essere di almeno 6 caratteri!', 'error');
+            return;
+        }
+
+        if (!document.getElementById('regAcceptTerms').checked) {
+            showNotification('Devi accettare i termini e condizioni!', 'error');
+            return;
+        }
+
+        const registrationData = {
+            name: document.getElementById('regName').value,
+            surname: document.getElementById('regSurname').value,
+            email: document.getElementById('regEmail').value,
+            phone: document.getElementById('regPhone').value,
+            birth_date: document.getElementById('regBirthDate').value,
+            category: document.getElementById('regCategory').value,
+            experience: document.getElementById('regExperience').value,
+            password: password,
+            bio: document.getElementById('regBio').value,
+            accept_notifications: document.getElementById('regAcceptNotifications').checked
+        };
+
+        // Invia registrazione all'API
+        const result = await callAPI('pilot_register', registrationData, 'POST');
+        
+        if (result.success) {
+            showNotification('Registrazione inviata con successo! Riceverai conferma via email.', 'success');
+            event.target.reset();
+            const previewEl = document.getElementById('regPhotoPreview');
+            if (previewEl) previewEl.innerHTML = '';
+        } else {
+            showNotification(result.error || 'Errore durante la registrazione', 'error');
+        }
+    };
+
+    // Aggiorna statistiche admin con dati API
+    window.updateAdminStats = async function() {
+        if (!isAdminLoggedIn) return;
+        
+        try {
+            // Carica statistiche dal database
+            const pilotsResult = await callAPI('get_pilots');
+            const sponsorsResult = await callAPI('get_sponsors');
+            const eventsResult = await callAPI('get_events');
+            
+            const pilots = pilotsResult.data || [];
+            const sponsors = sponsorsResult.data || [];
+            const events = eventsResult.data || [];
+            
+            document.getElementById('pilotsCount').textContent = pilots.length;
+            document.getElementById('sponsorsCount').textContent = sponsors.length;
+            document.getElementById('eventsCount').textContent = events.length;
+            
+            // Per materiali usa ancora localStorage per ora
+            const materials = getStorageData('materials');
+            const totalMaterials = materials.reduce((sum, m) => sum + (parseInt(m.quantity) || 0), 0);
+            document.getElementById('materialsCount').textContent = totalMaterials;
+            
+        } catch (error) {
+            console.error('Errore aggiornamento stats:', error);
+            // Fallback a localStorage
+            updateAdminStatsLocal();
+        }
+    };
+
+    console.log('✅ API Integration completata');
+    
+} else {
+    console.log('💾 Modalità LocalStorage attiva');
+}
+
+// Funzione helper per formattare date
+function formatDate(dateString) {
+    try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('it-IT', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    } catch (e) {
+        return dateString;
+    }
+}
+</script>
+</body>
+</html>
